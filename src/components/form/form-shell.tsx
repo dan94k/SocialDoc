@@ -9,21 +9,29 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import StepFreelancer from "./step-freelancer";
 import StepClient from "./step-client";
 import StepPlatforms from "./step-platforms";
-import StepPrice from "./step-price";
-import StepDueDay from "./step-due-day";
-import StepClauses from "./step-clauses";
+import StepScope from "./step-scope";
+import StepPayment from "./step-payment";
+import ClauseRevision from "./clause-revision";
+import ClauseApproval from "./clause-approval";
+import ClauseScopeExtras from "./clause-scope-extras";
+import ClauseCancellation from "./clause-cancellation";
+import ClauseFilesPayment from "./clause-files-payment";
 import StepDuration from "./step-duration";
 import StepDownload from "./step-download";
 
 const STEPS = [
-  StepFreelancer,
-  StepClient,
-  StepPlatforms,
-  StepPrice,
-  StepDueDay,
-  StepClauses,
-  StepDuration,
-  StepDownload,
+  StepFreelancer,       // 0
+  StepClient,           // 1
+  StepPlatforms,        // 2
+  StepScope,            // 3
+  StepPayment,          // 4
+  ClauseRevision,       // 5
+  ClauseApproval,       // 6
+  ClauseScopeExtras,    // 7
+  ClauseCancellation,   // 8
+  ClauseFilesPayment,   // 9
+  StepDuration,         // 10
+  StepDownload,         // 11
 ];
 
 export default function FormShell() {
