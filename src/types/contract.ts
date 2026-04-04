@@ -1,3 +1,5 @@
+export type DocType = "CPF" | "CNPJ" | "nao-fornecer";
+
 export interface ContractClauses {
   revisionLimit: boolean;
   approvalDeadline: boolean;
@@ -8,7 +10,11 @@ export interface ContractClauses {
 
 export interface ContractData {
   freelancerName: string;
+  freelancerDocType: DocType | null;
+  freelancerDoc: string;
   clientName: string;
+  clientDocType: DocType | null;
+  clientDoc: string;
   platforms: string[];
   monthlyPrice: number;
   paymentDueDay: number;

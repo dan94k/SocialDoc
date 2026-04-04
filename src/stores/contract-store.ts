@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { ContractData, ContractClauses } from "@/types/contract";
+import type { ContractData, ContractClauses, DocType } from "@/types/contract";
 
 interface ContractStore {
   data: ContractData;
@@ -16,7 +16,11 @@ interface ContractStore {
 
 const DEFAULT_DATA: ContractData = {
   freelancerName: "",
+  freelancerDocType: null,
+  freelancerDoc: "",
   clientName: "",
+  clientDocType: null,
+  clientDoc: "",
   platforms: [],
   monthlyPrice: 0,
   paymentDueDay: 5,
@@ -29,6 +33,12 @@ const DEFAULT_DATA: ContractData = {
   },
   durationMonths: 6,
 };
+
+function isDocValid(docType: DocType | null, doc: string): boolean {
+  if (docType === null) return false;
+  if (docType === "nao-fornecer") return true;
+  return doc.trim().length > 0;
+}
 
 export const useContractStore = create<ContractStore>((set, get) => ({
   data: { ...DEFAULT_DATA },
@@ -53,9 +63,15 @@ export const useContractStore = create<ContractStore>((set, get) => ({
     const { data } = get();
     switch (step) {
       case 0:
-        return data.freelancerName.trim().length > 0;
+        return (
+          data.freelancerName.trim().length > 0 &&
+          isDocValid(data.freelancerDocType, data.freelancerDoc)
+        );
       case 1:
-        return data.clientName.trim().length > 0;
+        return (
+          data.clientName.trim().length > 0 &&
+          isDocValid(data.clientDocType, data.clientDoc)
+        );
       case 2:
         return data.platforms.length > 0;
       case 3:

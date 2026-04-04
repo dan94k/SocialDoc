@@ -51,10 +51,16 @@ export default function ContractDocument({ data, showWatermark }: Props) {
         <Text style={styles.paragraph}>
           <Text style={styles.bold}>CONTRATANTE: </Text>
           {data.clientName}
+          {data.clientDocType && data.clientDocType !== "nao-fornecer" && data.clientDoc
+            ? `, ${data.clientDocType} ${data.clientDoc}`
+            : ""}
         </Text>
         <Text style={styles.paragraph}>
           <Text style={styles.bold}>CONTRATADA: </Text>
           {data.freelancerName}
+          {data.freelancerDocType && data.freelancerDocType !== "nao-fornecer" && data.freelancerDoc
+            ? `, ${data.freelancerDocType} ${data.freelancerDoc}`
+            : ""}
         </Text>
 
         {/* DO OBJETO */}
