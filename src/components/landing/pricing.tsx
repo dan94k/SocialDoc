@@ -1,11 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const plans = [
   {
     name: "Gratuito",
     price: "R$ 0",
+    period: null,
     description: "Para testar e conhecer",
     features: [
       "Contrato completo em PDF",
@@ -14,32 +17,52 @@ const plans = [
     ],
     highlighted: false,
     cta: "Criar contrato gratis",
+    href: "/contrato",
+    icon: null,
   },
   {
-    name: "Profissional",
+    name: "Contrato Único",
     price: "R$ 5",
-    description: "Contrato limpo e profissional",
+    period: null,
+    description: "Pague so quando precisar",
     features: [
-      "Contrato completo em PDF",
+      "PDF profissional sem marca d'agua",
       "Todas as clausulas disponiveis",
-      "Sem marca d'agua",
       "Pronto para enviar ao cliente",
     ],
-    highlighted: true,
+    highlighted: false,
     cta: "Criar contrato profissional",
+    href: "/contrato",
+    icon: null,
+  },
+  {
+    name: "Ilimitado Mensal",
+    price: "R$ 10",
+    period: "/mes",
+    description: "Contratos sem limite",
+    features: [
+      "Contratos ilimitados sem marca d'agua",
+      "Todas as clausulas disponiveis",
+      "Cancele quando quiser",
+      "Ideal para fechar contratos todo mes",
+    ],
+    highlighted: true,
+    cta: "Assinar agora",
+    href: "/assinar",
+    icon: Crown,
   },
 ];
 
 export default function Pricing() {
   return (
     <section className="px-4 py-20 bg-muted/30">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <h2 className="text-center text-3xl font-bold">Simples e transparente</h2>
         <p className="mt-3 text-center text-muted-foreground">
-          Sem mensalidade, sem surpresas. Pague apenas quando precisar.
+          Sem surpresas. Pague por contrato ou assine para gerar quantos quiser.
         </p>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 max-w-2xl mx-auto">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -51,20 +74,36 @@ export default function Pricing() {
               )}
             >
               <div>
-                <h3 className="text-lg font-semibold">{plan.name}</h3>
+                <div className="flex items-center gap-2 mb-0.5">
+                  {plan.icon && <plan.icon className="h-4 w-4 text-primary" />}
+                  <h3 className="text-lg font-semibold">{plan.name}</h3>
+                  {plan.highlighted && (
+                    <span className="ml-auto rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
+                      Popular
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
-              <div className="text-3xl font-bold">{plan.price}</div>
+
+              <div className="flex items-baseline gap-0.5">
+                <span className="text-3xl font-bold">{plan.price}</span>
+                {plan.period && (
+                  <span className="text-muted-foreground text-sm">{plan.period}</span>
+                )}
+              </div>
+
               <ul className="space-y-2">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-2 text-sm">
-                    <Check className="h-4 w-4 text-primary" />
+                    <Check className="h-4 w-4 text-primary shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
+
               <Link
-                href="/contrato"
+                href={plan.href}
                 className={cn(
                   "block w-full text-center rounded-lg px-4 py-2.5 text-sm font-medium transition-colors",
                   plan.highlighted

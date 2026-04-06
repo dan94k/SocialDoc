@@ -9,11 +9,10 @@ export default function ContratoPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.has("paid")) {
+    if (params.has("session_id")) {
       const restored = restoreFromSession();
       if (restored) {
-        // Go directly to the download step (last step)
-        setStep(7);
+        setStep(11); // StepDownload is the last step (index 11)
       }
     }
   }, [restoreFromSession, setStep]);
