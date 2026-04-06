@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="mx-auto max-w-3xl text-center">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm text-muted-foreground">
           <FileText className="h-4 w-4" />
-          Contrato profissional em 2 minutos
+          Contrato profissional em 5 minutos
         </div>
 
         <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
