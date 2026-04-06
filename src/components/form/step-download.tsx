@@ -4,8 +4,9 @@ import { useContractStore } from "@/stores/contract-store";
 import { Button } from "@/components/ui/button";
 import { getHotmartCheckoutUrl } from "@/lib/hotmart";
 import { formatBRL } from "@/lib/utils";
-import { Download, CreditCard, CheckCircle } from "lucide-react";
+import { CreditCard, CheckCircle } from "lucide-react";
 import dynamic from "next/dynamic";
+import { createClient } from "@/lib/supabase/client";
 
 const PdfDownload = dynamic(() => import("@/components/pdf/pdf-download"), {
   ssr: false,
@@ -15,6 +16,21 @@ const PdfDownload = dynamic(() => import("@/components/pdf/pdf-download"), {
     </Button>
   ),
 });
+
+async function saveContractToSupabase(data: ReturnType<typeof useContractStore.getState>["data"]) {
+  try {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    await supabase.from("contracts").insert({
+      user_id: user.id,
+      client_name: data.clientName || "Cliente",
+      data: data,
+    });
+  } catch {
+    // Silently fail — contract download proceeds regardless
+  }
+}
 
 export default function StepDownload() {
   const { data, saveToSession, prevStep } = useContractStore();
@@ -48,7 +64,9 @@ export default function StepDownload() {
             </div>
             <span className="text-sm font-medium text-muted-foreground">Gratis</span>
           </div>
-          <PdfDownload data={data} showWatermark={true} />
+          <div onClick={() => saveContractToSupabase(data)}>
+            <PdfDownload data={data} showWatermark={true} />
+          </div>
         </div>
 
         {/* Paid download without watermark */}
@@ -63,7 +81,9 @@ export default function StepDownload() {
             <span className="text-sm font-bold text-primary">R$ 5,00</span>
           </div>
           {isPaid ? (
-            <PdfDownload data={data} showWatermark={false} />
+            <div onClick={() => saveContractToSupabase(data)}>
+              <PdfDownload data={data} showWatermark={false} />
+            </div>
           ) : (
             <Button onClick={handlePaidDownload} className="w-full">
               <CreditCard className="mr-2 h-4 w-4" />
