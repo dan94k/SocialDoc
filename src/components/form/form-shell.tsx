@@ -21,6 +21,7 @@ import ClauseScopeExtras from "./clause-scope-extras";
 import ClauseCancellation from "./clause-cancellation";
 import ClauseFilesPayment from "./clause-files-payment";
 import StepDuration from "./step-duration";
+import StepReview from "./step-review";
 import StepDownload from "./step-download";
 
 const STEPS = [
@@ -35,7 +36,8 @@ const STEPS = [
   ClauseCancellation,   // 8
   ClauseFilesPayment,   // 9
   StepDuration,         // 10
-  StepDownload,         // 11
+  StepReview,           // 11
+  StepDownload,         // 12
 ];
 
 export default function FormShell() {

@@ -44,6 +44,7 @@ export const STEP_TITLES = [
   "Clausula: Cancelamento",
   "Clausula: Arquivos",
   "Duracao",
+  "Resumo",
   "Seu contrato",
 ] as const;
 

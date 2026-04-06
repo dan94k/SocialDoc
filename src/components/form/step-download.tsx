@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useContractStore } from "@/stores/contract-store";
 import { Button } from "@/components/ui/button";
 import { formatBRL } from "@/lib/utils";
-import { CreditCard, CheckCircle, Crown, Loader2, Zap } from "lucide-react";
+import { CheckCircle, Crown, Loader2, Zap } from "lucide-react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
@@ -107,71 +107,89 @@ export default function StepDownload() {
       </div>
 
       <div className="space-y-3">
-        {/* Free download with watermark */}
-        <div className="rounded-lg border p-4 space-y-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium">Download gratuito</p>
-              <p className="text-sm text-muted-foreground">PDF com marca d&apos;agua</p>
-            </div>
-            <span className="text-sm font-medium text-muted-foreground">Gratis</span>
-          </div>
-          <div onClick={() => saveContractToSupabase(data)}>
-            <PdfDownload data={data} showWatermark={true} />
-          </div>
-        </div>
-
-        {/* Professional download */}
-        <div className="rounded-lg border-2 border-primary p-4 space-y-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium">Download profissional</p>
-              <p className="text-sm text-muted-foreground">
-                PDF limpo, sem marca d&apos;agua
-              </p>
-            </div>
-            {!canDownloadClean && (
-              <span className="text-sm font-bold text-primary">
-                {isLoading ? "..." : "R$ 5,00"}
+        {isLoading ? (
+          <Button disabled className="w-full">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Verificando acesso...
+          </Button>
+        ) : isSubscribed ? (
+          /* Assinante: apenas download profissional, imediato */
+          <div className="rounded-lg border-2 border-primary p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Download profissional</p>
+                <p className="text-sm text-muted-foreground">PDF limpo, sem marca d&apos;agua</p>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                <Crown className="h-3 w-3" />
+                Incluído na assinatura
               </span>
-            )}
-          </div>
-
-          {isLoading ? (
-            <Button disabled className="w-full">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Verificando acesso...
-            </Button>
-          ) : canDownloadClean ? (
+            </div>
             <div onClick={() => saveContractToSupabase(data)}>
               <PdfDownload data={data} showWatermark={false} />
             </div>
-          ) : (
-            <div className="space-y-2">
-              <Button
-                onClick={handleSingleCheckout}
-                className="w-full"
-                disabled={loadingCheckout}
-              >
-                {loadingCheckout ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <>
-                    <Zap className="mr-2 h-4 w-4" />
-                    Pagar R$ 5,00 por este contrato
-                  </>
-                )}
-              </Button>
-              <Link
-                href="/assinar"
-                className="flex items-center justify-center gap-2 w-full rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
-              >
-                <Crown className="h-4 w-4 text-primary" />
-                Assinar por R$ 10/mes (ilimitado)
-              </Link>
+          </div>
+        ) : (
+          /* Não assinante: free + opções de pagamento */
+          <>
+            {/* Free download with watermark */}
+            <div className="rounded-lg border p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Download gratuito</p>
+                  <p className="text-sm text-muted-foreground">PDF com marca d&apos;agua</p>
+                </div>
+                <span className="text-sm font-medium text-muted-foreground">Gratis</span>
+              </div>
+              <div onClick={() => saveContractToSupabase(data)}>
+                <PdfDownload data={data} showWatermark={true} />
+              </div>
             </div>
-          )}
-        </div>
+
+            {/* Professional download */}
+            <div className="rounded-lg border-2 border-primary p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Download profissional</p>
+                  <p className="text-sm text-muted-foreground">PDF limpo, sem marca d&apos;agua</p>
+                </div>
+                {!isPaid && (
+                  <span className="text-sm font-bold text-primary">R$ 5,00</span>
+                )}
+              </div>
+
+              {isPaid ? (
+                <div onClick={() => saveContractToSupabase(data)}>
+                  <PdfDownload data={data} showWatermark={false} />
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Button
+                    onClick={handleSingleCheckout}
+                    className="w-full"
+                    disabled={loadingCheckout}
+                  >
+                    {loadingCheckout ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <>
+                        <Zap className="mr-2 h-4 w-4" />
+                        Pagar R$ 5,00 por este contrato
+                      </>
+                    )}
+                  </Button>
+                  <Link
+                    href="/assinar"
+                    className="flex items-center justify-center gap-2 w-full rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                  >
+                    <Crown className="h-4 w-4 text-primary" />
+                    Assinar por R$ 10/mes (ilimitado)
+                  </Link>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       <Button variant="ghost" onClick={prevStep} className="w-full">

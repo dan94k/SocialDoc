@@ -12,7 +12,7 @@ export default function ContratoPage() {
     if (params.has("session_id")) {
       const restored = restoreFromSession();
       if (restored) {
-        setStep(11); // StepDownload is the last step (index 11)
+        setStep(12); // StepDownload is the last step (index 12)
       }
     }
   }, [restoreFromSession, setStep]);
