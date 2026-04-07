@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface Subscription {
-  status: string;
+  status: string | null;
   current_period_end: string | null;
-  stripe_customer_id: string;
+  stripe_customer_id: string | null;
+  isFallback?: boolean;
 }
 
 interface Purchase {
@@ -67,25 +68,27 @@ export default function SubscriptionTab({ subscription, purchases }: Props) {
               <div>
                 <p className="font-semibold">Assinante Ilimitado</p>
                 <p className="text-sm text-muted-foreground">
-                  R$ 10,00/mês · Renova em {renewDate}
+                  R$ 10,00/mês{renewDate ? ` · Renova em ${renewDate}` : ""}
                 </p>
               </div>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handlePortal}
-              disabled={loadingPortal}
-            >
-              {loadingPortal ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  <ExternalLink className="h-4 w-4 mr-1.5" />
-                  Gerenciar assinatura
-                </>
-              )}
-            </Button>
+            {!subscription?.isFallback && subscription?.stripe_customer_id && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handlePortal}
+                disabled={loadingPortal}
+              >
+                {loadingPortal ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <ExternalLink className="h-4 w-4 mr-1.5" />
+                    Gerenciar assinatura
+                  </>
+                )}
+              </Button>
+            )}
           </div>
         ) : isPastDue ? (
           <div className="flex items-start justify-between gap-4 flex-wrap">

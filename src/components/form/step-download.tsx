@@ -52,13 +52,27 @@ export default function StepDownload() {
       }
 
       if (user) {
+        // Fonte primária: tabela subscriptions
         const { data: sub } = await supabase
           .from("subscriptions")
           .select("status")
           .eq("user_id", user.id)
           .eq("status", "active")
           .maybeSingle();
-        setIsSubscribed(!!sub);
+
+        if (sub) {
+          setIsSubscribed(true);
+        } else {
+          // Fallback: tabela purchases (caso webhook não tenha chegado)
+          const { data: purchase } = await supabase
+            .from("purchases")
+            .select("id")
+            .eq("user_id", user.id)
+            .eq("type", "subscription")
+            .eq("status", "paid")
+            .maybeSingle();
+          setIsSubscribed(!!purchase);
+        }
       }
 
       setIsLoading(false);

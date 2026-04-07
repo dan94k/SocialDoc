@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FileText } from "lucide-react";
 import SubscriptionPlans from "@/components/assinar/subscription-plans";
 import SignOutButton from "@/components/dashboard/sign-out-button";
+import { getSubscription } from "@/lib/subscription";
 
 export default async function AssinarPage() {
   const supabase = await createClient();
@@ -13,14 +14,8 @@ export default async function AssinarPage() {
     redirect("/");
   }
 
-  const { data: subscription } = await supabase
-    .from("subscriptions")
-    .select("status")
-    .eq("user_id", user.id)
-    .eq("status", "active")
-    .maybeSingle();
-
-  const isSubscribed = !!subscription;
+  const subscriptionInfo = await getSubscription(supabase, user.id);
+  const isSubscribed = subscriptionInfo.isActive;
   const avatar = user.user_metadata?.avatar_url;
 
   return (

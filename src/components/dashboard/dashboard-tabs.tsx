@@ -15,9 +15,10 @@ interface Contract {
 }
 
 interface Subscription {
-  status: string;
+  status: string | null;
   current_period_end: string | null;
-  stripe_customer_id: string;
+  stripe_customer_id: string | null;
+  isFallback?: boolean;
 }
 
 interface Purchase {

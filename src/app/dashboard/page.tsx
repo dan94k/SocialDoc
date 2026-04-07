@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FileText, Plus } from "lucide-react";
 import SignOutButton from "@/components/dashboard/sign-out-button";
 import DashboardTabs from "@/components/dashboard/dashboard-tabs";
+import { getSubscription } from "@/lib/subscription";
 
 export default async function DashboardPage({
   searchParams,
@@ -20,17 +21,12 @@ export default async function DashboardPage({
   const params = await searchParams;
   const showSubscribedBanner = params.subscribed === "1";
 
-  const [contractsResult, subscriptionResult, purchasesResult] = await Promise.all([
+  const [contractsResult, subscriptionInfo, purchasesResult] = await Promise.all([
     supabase
       .from("contracts")
       .select("id, created_at, client_name, data")
       .order("created_at", { ascending: false }),
-    supabase
-      .from("subscriptions")
-      .select("status, current_period_end, stripe_customer_id")
-      .eq("user_id", user.id)
-      .eq("status", "active")
-      .maybeSingle(),
+    getSubscription(supabase, user.id),
     supabase
       .from("purchases")
       .select("id, created_at, type, amount_brl, status")
@@ -39,7 +35,7 @@ export default async function DashboardPage({
   ]);
 
   const contracts = contractsResult.data ?? [];
-  const subscription = subscriptionResult.data ?? null;
+  const subscription = subscriptionInfo.isActive ? subscriptionInfo : null;
   const purchases = purchasesResult.data ?? [];
 
   const name = user.user_metadata?.full_name?.split(" ")[0] ?? "você";
