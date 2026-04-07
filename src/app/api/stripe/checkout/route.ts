@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { priceId, type } = body as { priceId: string; type: "single" | "subscription" };
+  const { priceId } = body as { priceId: string };
 
   const validPriceIds = Object.values(PRICE_IDS);
   if (!validPriceIds.includes(priceId as typeof PRICE_IDS[keyof typeof PRICE_IDS])) {
@@ -20,27 +20,20 @@ export async function POST(request: Request) {
 
   const origin = new URL(request.url).origin;
 
-  const successUrl =
-    type === "single"
-      ? `${origin}/contrato?session_id={CHECKOUT_SESSION_ID}`
-      : `${origin}/assinatura?subscribed=1`;
-
   const session = await stripe.checkout.sessions.create({
-    mode: type === "single" ? "payment" : "subscription",
+    mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: successUrl,
-    cancel_url: `${origin}/contrato`,
+    success_url: `${origin}/assinatura?subscribed=1`,
+    cancel_url: `${origin}/assinar`,
     customer_email: user.email,
     metadata: {
       user_id: user.id,
       price_id: priceId,
-      type,
+      type: "subscription",
     },
-    ...(type === "subscription" && {
-      subscription_data: {
-        metadata: { user_id: user.id },
-      },
-    }),
+    subscription_data: {
+      metadata: { user_id: user.id },
+    },
   });
 
   return NextResponse.json({ url: session.url });

@@ -21,21 +21,6 @@ const plans = [
     icon: null,
   },
   {
-    name: "Contrato Único",
-    price: "R$ 5",
-    period: null,
-    description: "Pague so quando precisar",
-    features: [
-      "PDF profissional sem marca d'agua",
-      "Todas as clausulas disponiveis",
-      "Pronto para enviar ao cliente",
-    ],
-    highlighted: false,
-    cta: "Criar contrato profissional",
-    href: "/contrato",
-    icon: null,
-  },
-  {
     name: "Ilimitado Mensal",
     price: "R$ 10",
     period: "/mes",
@@ -59,10 +44,10 @@ export default function Pricing() {
       <div className="mx-auto max-w-5xl">
         <h2 className="text-center text-3xl font-bold">Simples e transparente</h2>
         <p className="mt-3 text-center text-muted-foreground">
-          Sem surpresas. Pague por contrato ou assine para gerar quantos quiser.
+          Comece gratis ou assine para gerar contratos profissionais sem limite.
         </p>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 max-w-2xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.name}

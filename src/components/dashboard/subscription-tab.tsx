@@ -122,7 +122,7 @@ export default function SubscriptionTab({ subscription, purchases, showSubscribe
               <div>
                 <p className="font-semibold">Plano Gratuito</p>
                 <p className="text-sm text-muted-foreground">
-                  Pague R$ 5 por contrato ou assine por R$ 10/mês.
+                  Assine por R$ 10/mês para downloads ilimitados sem marca d&apos;água.
                 </p>
               </div>
             </div>
