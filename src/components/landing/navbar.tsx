@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, Plus } from "lucide-react";
+import { FileText, Plus, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -39,9 +39,7 @@ export default function Navbar() {
     } else {
       await supabase.auth.signInWithOAuth({
         provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
       });
     }
   };
@@ -89,20 +87,38 @@ export default function Navbar() {
               )
             )}
 
-            <div className="ml-2 pl-2 border-l flex items-center gap-2">
-              {user.user_metadata?.avatar_url && (
+            {/* Avatar com dropdown no hover */}
+            <div className="relative ml-2 pl-2 border-l group">
+              {user.user_metadata?.avatar_url ? (
                 <img
                   src={user.user_metadata.avatar_url}
                   alt={user.user_metadata?.full_name ?? "Avatar"}
-                  className="h-7 w-7 rounded-full border"
+                  className="h-8 w-8 rounded-full border cursor-pointer"
                 />
+              ) : (
+                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium cursor-pointer">
+                  {user.email?.[0]?.toUpperCase() ?? "U"}
+                </div>
               )}
-              <button
-                onClick={handleSignOut}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
-              >
-                Sair
-              </button>
+
+              {/* Dropdown */}
+              <div className="absolute right-0 top-full pt-2 hidden group-hover:block">
+                <div className="w-44 rounded-xl border bg-background shadow-lg overflow-hidden">
+                  {user.user_metadata?.full_name && (
+                    <div className="px-3 py-2.5 border-b">
+                      <p className="text-xs font-medium truncate">{user.user_metadata.full_name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                    </div>
+                  )}
+                  <button
+                    onClick={handleSignOut}
+                    className="flex w-full items-center gap-2 px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    Sair
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
