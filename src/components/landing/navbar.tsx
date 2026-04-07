@@ -11,7 +11,7 @@ import type { User } from "@supabase/supabase-js";
 const NAV_LINKS = [
   { label: "Novo Contrato", href: "/contrato", highlight: true },
   { label: "Contratos", href: "/dashboard" },
-  { label: "Assinatura", href: "/assinar" },
+  { label: "Assinatura", href: "/assinatura" },
 ];
 
 export default function Navbar() {

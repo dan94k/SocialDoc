@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   const successUrl =
     type === "single"
       ? `${origin}/contrato?session_id={CHECKOUT_SESSION_ID}`
-      : `${origin}/dashboard?subscribed=1`;
+      : `${origin}/assinatura?subscribed=1`;
 
   const session = await stripe.checkout.sessions.create({
     mode: type === "single" ? "payment" : "subscription",

@@ -24,9 +24,10 @@ interface Purchase {
 interface Props {
   subscription: Subscription | null;
   purchases: Purchase[];
+  showSubscribedBanner?: boolean;
 }
 
-export default function SubscriptionTab({ subscription, purchases }: Props) {
+export default function SubscriptionTab({ subscription, purchases, showSubscribedBanner }: Props) {
   const [loadingPortal, setLoadingPortal] = useState(false);
 
   const isActive = subscription?.status === "active";
@@ -55,6 +56,11 @@ export default function SubscriptionTab({ subscription, purchases }: Props) {
 
   return (
     <div className="space-y-6">
+      {showSubscribedBanner && (
+        <div className="rounded-xl border border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-900 px-4 py-3 text-sm text-green-700 dark:text-green-400 font-medium">
+          🎉 Assinatura ativada com sucesso! Você já pode gerar contratos ilimitados.
+        </div>
+      )}
       {/* Plan status card */}
       <div className="rounded-xl border p-6 space-y-4">
         <h3 className="font-semibold text-base">Seu plano atual</h3>
