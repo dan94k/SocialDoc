@@ -10,6 +10,7 @@ interface Subscription {
   status: string | null;
   current_period_end: string | null;
   stripe_customer_id: string | null;
+  cancelAtPeriodEnd?: boolean;
   isFallback?: boolean;
 }
 
@@ -30,10 +31,11 @@ interface Props {
 export default function SubscriptionTab({ subscription, purchases, showSubscribedBanner }: Props) {
   const [loadingPortal, setLoadingPortal] = useState(false);
 
-  const isActive = subscription?.status === "active";
+  const isActive = !!subscription;
   const isPastDue = subscription?.status === "past_due";
+  const isCanceling = subscription?.cancelAtPeriodEnd === true;
 
-  const renewDate = subscription?.current_period_end
+  const periodDate = subscription?.current_period_end
     ? new Date(subscription.current_period_end).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "long",
@@ -68,13 +70,19 @@ export default function SubscriptionTab({ subscription, purchases, showSubscribe
         {isActive ? (
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-3">
-              <div className="rounded-full bg-primary/10 p-2">
-                <Crown className="h-5 w-5 text-primary" />
+              <div className={`rounded-full p-2 ${isCanceling ? "bg-orange-500/10" : "bg-primary/10"}`}>
+                <Crown className={`h-5 w-5 ${isCanceling ? "text-orange-500" : "text-primary"}`} />
               </div>
               <div>
-                <p className="font-semibold">Assinante Ilimitado</p>
+                <p className="font-semibold">
+                  {isCanceling ? "Assinatura cancelada" : "Assinante Ilimitado"}
+                </p>
                 <p className="text-sm text-muted-foreground">
-                  R$ 10,00/mês{renewDate ? ` · Renova em ${renewDate}` : ""}
+                  {isCanceling
+                    ? periodDate
+                      ? `Acesso válido até ${periodDate}`
+                      : "Assinatura cancelada"
+                    : `R$ 10,00/mês${periodDate ? ` · Renova em ${periodDate}` : ""}`}
                 </p>
               </div>
             </div>
@@ -90,7 +98,7 @@ export default function SubscriptionTab({ subscription, purchases, showSubscribe
                 ) : (
                   <>
                     <ExternalLink className="h-4 w-4 mr-1.5" />
-                    Gerenciar assinatura
+                    {isCanceling ? "Reativar assinatura" : "Gerenciar assinatura"}
                   </>
                 )}
               </Button>

@@ -5,6 +5,7 @@ export interface SubscriptionInfo {
   status: string | null;
   current_period_end: string | null;
   stripe_customer_id: string | null;
+  cancelAtPeriodEnd: boolean;
   /** true quando vem da tabela purchases como fallback (sem customer portal disponível) */
   isFallback: boolean;
 }
@@ -19,21 +20,30 @@ export async function getSubscription(
   userId: string
 ): Promise<SubscriptionInfo> {
   // 1. Fonte primária: tabela subscriptions
+  //    Inclui assinaturas ativas E canceladas com acesso ainda vigente
   const { data: sub } = await supabase
     .from("subscriptions")
-    .select("status, current_period_end, stripe_customer_id")
+    .select("status, current_period_end, stripe_customer_id, cancel_at_period_end")
     .eq("user_id", userId)
-    .eq("status", "active")
+    .in("status", ["active", "canceled"])
+    .order("created_at", { ascending: false })
+    .limit(1)
     .maybeSingle();
 
   if (sub) {
-    return {
-      isActive: true,
-      status: sub.status,
-      current_period_end: sub.current_period_end,
-      stripe_customer_id: sub.stripe_customer_id,
-      isFallback: false,
-    };
+    const periodEnd = sub.current_period_end ? new Date(sub.current_period_end) : null;
+    const stillValid = !periodEnd || periodEnd > new Date();
+
+    if (stillValid) {
+      return {
+        isActive: true,
+        status: sub.status,
+        current_period_end: sub.current_period_end,
+        stripe_customer_id: sub.stripe_customer_id,
+        cancelAtPeriodEnd: sub.cancel_at_period_end ?? false,
+        isFallback: false,
+      };
+    }
   }
 
   // 2. Fallback: tabela purchases (caso webhook não tenha chegado)
@@ -51,6 +61,7 @@ export async function getSubscription(
       status: "active",
       current_period_end: null,
       stripe_customer_id: null,
+      cancelAtPeriodEnd: false,
       isFallback: true,
     };
   }
@@ -60,6 +71,7 @@ export async function getSubscription(
     status: null,
     current_period_end: null,
     stripe_customer_id: null,
+    cancelAtPeriodEnd: false,
     isFallback: false,
   };
 }

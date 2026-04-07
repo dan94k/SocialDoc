@@ -71,6 +71,7 @@ export async function POST(request: Request) {
           current_period_end: new Date(
             (sub as unknown as { current_period_end: number }).current_period_end * 1000
           ).toISOString(),
+          cancel_at_period_end: sub.cancel_at_period_end,
         },
         { onConflict: "stripe_subscription_id" }
       );
