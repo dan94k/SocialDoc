@@ -98,11 +98,20 @@ export default function ContractDocument({ data, showWatermark }: Props) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Watermark */}
+        {/* Free plan banners */}
         {showWatermark && (
-          <View style={styles.watermark} fixed>
-            <Text>SocialDoc — Versao Gratuita</Text>
-          </View>
+          <>
+            <View style={styles.freeBannerTop} fixed>
+              <Text style={styles.freeBannerText}>
+                Versao de avaliacao gratuita — Gerado pelo plano free do SocialDoc. Este documento nao possui validade juridica.
+              </Text>
+            </View>
+            <View style={styles.freeBannerBottom} fixed>
+              <Text style={styles.freeBannerText}>
+                Assine o plano ilimitado em socialdoc.com.br para gerar contratos sem esta faixa.
+              </Text>
+            </View>
+          </>
         )}
 
         {/* Title */}
