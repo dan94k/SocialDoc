@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/landing/navbar";
 
-const inter = Inter({
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const dmSans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -11,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SocialDoc — Contrato profissional para social media",
   description:
-    "Gere um contrato profissional de social media em menos de 2 minutos. Proteja seu trabalho como freelancer.",
+    "Gere um contrato profissional de social media em menos de 5 minutos. Proteja seu trabalho como freelancer.",
 };
 
 export default function RootLayout({
@@ -20,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} h-full antialiased`}>
+    <html lang="pt-BR" className={`${bricolage.variable} ${dmSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
