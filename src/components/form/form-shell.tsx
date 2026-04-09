@@ -42,10 +42,10 @@ export default function FormShell() {
 
   return (
     <div
-      className="flex flex-1 flex-col items-center justify-center px-4 py-10"
+      className="flex flex-1 flex-col items-center justify-start px-4 pt-16 pb-16"
       style={{ background: "#f5f3ef", minHeight: "100vh" }}
     >
-      <div className="w-full max-w-lg">
+      <div className="w-full max-w-5xl">
 
         {/* Progress header */}
         <div className="mb-3 flex items-center justify-between">
