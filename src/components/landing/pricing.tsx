@@ -29,7 +29,6 @@ const plans = [
       "Contratos ilimitados sem marca d'água",
       "Todas as cláusulas disponíveis",
       "Cancele quando quiser",
-      "Ideal para fechar contratos todo mês",
     ],
     highlighted: true,
     cta: "Assinar agora",
