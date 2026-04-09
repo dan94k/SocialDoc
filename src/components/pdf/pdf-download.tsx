@@ -8,9 +8,10 @@ import type { ContractData } from "@/types/contract";
 interface Props {
   data: ContractData;
   showWatermark: boolean;
+  variant?: "default" | "lime";
 }
 
-export default function PdfDownload({ data, showWatermark }: Props) {
+export default function PdfDownload({ data, showWatermark, variant = "default" }: Props) {
   const filename = showWatermark
     ? `contrato-${data.clientName.toLowerCase().replace(/\s+/g, "-")}-avaliacao.pdf`
     : `contrato-${data.clientName.toLowerCase().replace(/\s+/g, "-")}.pdf`;
@@ -26,7 +27,9 @@ export default function PdfDownload({ data, showWatermark }: Props) {
           disabled={loading}
           className="w-full inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100"
           style={
-            showWatermark
+            variant === "lime"
+              ? { background: "#d4ff00", color: "#050b18", border: "none" }
+              : showWatermark
               ? {
                   background: "rgba(5,11,24,0.06)",
                   color: "rgba(5,11,24,0.65)",

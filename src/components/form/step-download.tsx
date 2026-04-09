@@ -95,15 +95,6 @@ export default function StepDownload() {
           Contrato para <strong style={{ color: "#050b18" }}>{data.clientName}</strong> no valor de{" "}
           <strong style={{ color: "#050b18" }}>{formatBRL(data.monthlyPrice)}</strong>/mês.
         </p>
-        {isSubscribed && (
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
-            style={{ background: "rgba(5,11,24,0.07)", color: "#050b18" }}
-          >
-            <Crown className="h-3 w-3" />
-            Assinante Ilimitado
-          </span>
-        )}
       </div>
 
       {/* Download options */}
@@ -165,7 +156,7 @@ export default function StepDownload() {
               </div>
               {isSubscribed ? (
                 <div onClick={() => saveContractToSupabase(data)}>
-                  <PdfDownload data={data} showWatermark={false} />
+                  <PdfDownload data={data} showWatermark={false} variant="lime" />
                 </div>
               ) : (
                 <Link
