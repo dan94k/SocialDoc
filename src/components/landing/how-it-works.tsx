@@ -75,7 +75,7 @@ export default function HowItWorks() {
                 className="text-7xl font-black leading-none mb-6 select-none"
                 style={{
                   fontFamily: "var(--font-display)",
-                  color: "rgba(5,11,24,0.06)",
+                  color: "rgba(5,11,24,0.08)",
                   lineHeight: 1,
                 }}
               >
