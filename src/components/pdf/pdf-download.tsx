@@ -33,8 +33,9 @@ export default function PdfDownload({ data, showWatermark }: Props) {
                   border: "1px solid rgba(5,11,24,0.1)",
                 }
               : {
-                  background: "#050b18",
-                  color: "#ffffff",
+                  background: "rgba(5,11,24,0.06)",
+                  color: "#050b18",
+                  border: "1px solid rgba(5,11,24,0.1)",
                 }
           }
         >
