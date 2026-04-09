@@ -282,7 +282,7 @@ Tamanhos padrão:
 Em vez de marca d'água diagonal, o contrato gratuito exibe duas faixas amarelas fixas em todas as páginas:
 
 - **Cor:** `#FFD600`
-- **Topo:** "Versão de avaliação gratuita — Gerada pelo plano free do SocialDoc. Este documento não possui validade jurídica."
+- **Topo:** "Versão de avaliação gratuita — Gerada pelo plano gratuito do SocialDoc."
 - **Rodapé:** "Assine o plano ilimitado em socialdoc.com.br para gerar contratos sem esta faixa."
 - Texto em `Helvetica-Bold`, `fontSize: 7`, uppercase, centralizado
 - Ambas com `fixed: true` para aparecer em todas as páginas

@@ -103,7 +103,7 @@ export default function ContractDocument({ data, showWatermark }: Props) {
           <>
             <View style={styles.freeBannerTop} fixed>
               <Text style={styles.freeBannerText}>
-                Versão de avaliação gratuita — Gerada pelo plano free do SocialDoc. Este documento não possui validade jurídica.
+                Versão de avaliação gratuita — Gerada pelo plano gratuito do SocialDoc.
               </Text>
             </View>
             <View style={styles.freeBannerBottom} fixed>
