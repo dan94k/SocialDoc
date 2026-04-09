@@ -10,13 +10,20 @@ export default function StepClient() {
 
   return (
     <div className="space-y-5">
-      <h2 className="text-2xl font-bold">Dados do seu cliente</h2>
-      <p className="text-muted-foreground">
-        Nome completo ou razão social do cliente que contratará seus serviços.
-      </p>
+      <div>
+        <h2
+          className="text-2xl font-extrabold"
+          style={{ fontFamily: "var(--font-display)", color: "#050b18" }}
+        >
+          Dados do seu cliente
+        </h2>
+        <p className="text-sm mt-1.5" style={{ color: "rgba(5,11,24,0.5)" }}>
+          Nome completo ou razão social do cliente que contratará seus serviços.
+        </p>
+      </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium text-foreground">Nome completo ou razão social</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Nome completo ou razão social</p>
         <Input
           placeholder="Ex: Padaria do João LTDA"
           value={data.clientName}

@@ -91,9 +91,9 @@ export default function StepDownload() {
         <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
           Seu contrato está pronto!
         </h2>
-        <p className="text-muted-foreground text-sm">
-          Contrato para <strong>{data.clientName}</strong> no valor de{" "}
-          <strong>{formatBRL(data.monthlyPrice)}</strong>/mês.
+        <p className="text-sm" style={{ color: "rgba(5,11,24,0.5)" }}>
+          Contrato para <strong style={{ color: "#050b18" }}>{data.clientName}</strong> no valor de{" "}
+          <strong style={{ color: "#050b18" }}>{formatBRL(data.monthlyPrice)}</strong>/mês.
         </p>
         {isSubscribed && (
           <span
@@ -127,9 +127,9 @@ export default function StepDownload() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-semibold text-sm">Download gratuito</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">PDF com faixa de avaliação</p>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(5,11,24,0.45)" }}>PDF com faixa de avaliação</p>
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">Grátis</span>
+                <span className="text-sm font-medium" style={{ color: "rgba(5,11,24,0.5)" }}>Grátis</span>
               </div>
               <div onClick={() => saveContractToSupabase(data)}>
                 <PdfDownload data={data} showWatermark={true} />

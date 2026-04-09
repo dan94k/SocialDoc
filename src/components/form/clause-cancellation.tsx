@@ -32,7 +32,7 @@ export default function ClauseCancellation() {
         suffix="%"
       />
 
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs" style={{ color: "rgba(5,11,24,0.45)" }}>
         Multa aplicada quando o aviso for dado com menos de {clause.noticeDays}{" "}
         {clause.noticeDays === 1 ? "dia" : "dias"} de antecedência.
       </p>

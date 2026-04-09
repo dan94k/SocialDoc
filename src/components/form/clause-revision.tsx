@@ -34,18 +34,19 @@ export default function ClauseRevision() {
       />
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Cobrar por revisão extra?</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Cobrar por revisão extra?</p>
         <div className="flex gap-2">
           {[true, false].map((val) => (
             <button
               key={String(val)}
               type="button"
               onClick={() => setClauseField("revision", "chargeExtra", val)}
-              className={`flex-1 rounded-lg border py-2 text-sm font-medium transition-colors ${
+              className="flex-1 rounded-2xl py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.01]"
+              style={
                 clause.chargeExtra === val
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-background hover:bg-accent"
-              }`}
+                  ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                  : { background: "transparent", color: "rgba(5,11,24,0.6)", border: "1px solid rgba(5,11,24,0.15)" }
+              }
             >
               {val ? "Sim" : "Não"}
             </button>
@@ -55,9 +56,9 @@ export default function ClauseRevision() {
 
       {clause.chargeExtra && (
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Valor por revisão extra</label>
+          <label className="text-sm font-medium" style={{ color: "#050b18" }}>Valor por revisão extra</label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold" style={{ color: "rgba(5,11,24,0.4)" }}>
               R$
             </span>
             <Input

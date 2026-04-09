@@ -10,13 +10,20 @@ export default function StepFreelancer() {
 
   return (
     <div className="space-y-5">
-      <h2 className="text-2xl font-bold">Seus dados</h2>
-      <p className="text-muted-foreground">
-        Informações que aparecerão no contrato como prestador de serviços.
-      </p>
+      <div>
+        <h2
+          className="text-2xl font-extrabold"
+          style={{ fontFamily: "var(--font-display)", color: "#050b18" }}
+        >
+          Seus dados
+        </h2>
+        <p className="text-sm mt-1.5" style={{ color: "rgba(5,11,24,0.5)" }}>
+          Informações que aparecerão no contrato como prestador de serviços.
+        </p>
+      </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium text-foreground">Nome completo</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Nome completo</p>
         <Input
           placeholder="Ex: Maria Silva"
           value={data.freelancerName}

@@ -2,7 +2,6 @@
 
 import { useContractStore } from "@/stores/contract-store";
 import { CONTENT_TYPES, AUXILIARY_SERVICES } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 export default function StepScope() {
   const { data, toggleContentType, toggleAuxiliaryService, setField } = useContractStore();
@@ -10,15 +9,20 @@ export default function StepScope() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold">Escopo dos serviços</h2>
-        <p className="text-sm text-muted-foreground mt-1">
+        <h2
+          className="text-2xl font-extrabold"
+          style={{ fontFamily: "var(--font-display)", color: "#050b18" }}
+        >
+          Escopo dos serviços
+        </h2>
+        <p className="text-sm mt-1.5" style={{ color: "rgba(5,11,24,0.5)" }}>
           O que você vai produzir para {data.clientName || "o cliente"}?
         </p>
       </div>
 
       {/* Tipos de conteúdo */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Tipos de conteúdo</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Tipos de conteúdo</p>
         <div className="flex flex-wrap gap-2">
           {CONTENT_TYPES.map((ct) => {
             const selected = data.contentTypes.includes(ct.id);
@@ -27,12 +31,12 @@ export default function StepScope() {
                 key={ct.id}
                 type="button"
                 onClick={() => toggleContentType(ct.id)}
-                className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                className="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.02]"
+                style={
                   selected
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-background hover:bg-accent"
-                )}
+                    ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                    : { background: "transparent", color: "rgba(5,11,24,0.65)", border: "1px solid rgba(5,11,24,0.18)" }
+                }
               >
                 {ct.label}
               </button>
@@ -43,32 +47,34 @@ export default function StepScope() {
 
       {/* Quantidade total de peças */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Quantidade total de peças por mês</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Quantidade total de peças por mês</p>
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => setField("totalPieces", Math.max(1, data.totalPieces - 1))}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border text-lg hover:bg-accent"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-lg font-medium transition-all duration-200 hover:scale-[1.05]"
+            style={{ border: "1px solid rgba(5,11,24,0.15)", background: "transparent", color: "#050b18" }}
           >
             −
           </button>
-          <span className="text-2xl font-bold min-w-[2.5rem] text-center">
+          <span className="text-2xl font-bold min-w-[2.5rem] text-center" style={{ color: "#050b18", fontFamily: "var(--font-display)" }}>
             {data.totalPieces}
           </span>
           <button
             type="button"
             onClick={() => setField("totalPieces", data.totalPieces + 1)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border text-lg hover:bg-accent"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-lg font-medium transition-all duration-200 hover:scale-[1.05]"
+            style={{ border: "1px solid rgba(5,11,24,0.15)", background: "transparent", color: "#050b18" }}
           >
             +
           </button>
-          <span className="text-sm text-muted-foreground">peças / mês</span>
+          <span className="text-sm" style={{ color: "rgba(5,11,24,0.5)" }}>peças / mês</span>
         </div>
       </div>
 
       {/* Serviços complementares */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Serviços complementares</p>
+        <p className="text-sm font-medium" style={{ color: "#050b18" }}>Serviços complementares</p>
         <div className="flex flex-wrap gap-2">
           {AUXILIARY_SERVICES.map((svc) => {
             const selected = data.auxiliaryServices.includes(svc.id);
@@ -77,12 +83,12 @@ export default function StepScope() {
                 key={svc.id}
                 type="button"
                 onClick={() => toggleAuxiliaryService(svc.id)}
-                className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                className="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.02]"
+                style={
                   selected
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-background hover:bg-accent"
-                )}
+                    ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                    : { background: "transparent", color: "rgba(5,11,24,0.65)", border: "1px solid rgba(5,11,24,0.18)" }
+                }
               >
                 {svc.label}
               </button>

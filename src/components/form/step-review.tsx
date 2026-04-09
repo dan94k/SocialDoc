@@ -8,7 +8,7 @@ import { User, UserCheck, Monitor, FileText, CreditCard, Shield, Clock } from "l
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-4 text-sm py-1.5 border-b last:border-0">
-      <span className="text-muted-foreground shrink-0">{label}</span>
+      <span className="shrink-0" style={{ color: "rgba(5,11,24,0.5)" }}>{label}</span>
       <span className="font-medium text-right">{value}</span>
     </div>
   );
@@ -68,8 +68,8 @@ export default function StepReview() {
   return (
     <div className="space-y-4">
       <div className="space-y-1">
-        <h2 className="text-2xl font-bold">Resumo do contrato</h2>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="text-2xl font-extrabold" style={{ fontFamily: "var(--font-display)", color: "#050b18" }}>Resumo do contrato</h2>
+        <p className="text-sm" style={{ color: "rgba(5,11,24,0.5)" }}>
           Confira os dados antes de gerar o PDF.
         </p>
       </div>

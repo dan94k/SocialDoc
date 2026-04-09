@@ -31,8 +31,8 @@ export default function ClauseShell({
           <ShieldCheck className="h-5 w-5" style={{ color: "#050b18" }} />
         </div>
         <div>
-          <h2 className="text-xl font-bold">{title}</h2>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <h2 className="text-xl font-bold" style={{ color: "#050b18" }}>{title}</h2>
+          <p className="text-sm" style={{ color: "rgba(5,11,24,0.5)" }}>{description}</p>
         </div>
       </div>
 

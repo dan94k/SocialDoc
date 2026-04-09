@@ -23,7 +23,7 @@ export default function ClauseApproval() {
         min={1}
         suffix={clause.deadlineDays === 1 ? "dia útil" : "dias úteis"}
       />
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs" style={{ color: "rgba(5,11,24,0.45)" }}>
         Após esse prazo sem resposta, o material é considerado automaticamente aprovado.
       </p>
     </ClauseShell>

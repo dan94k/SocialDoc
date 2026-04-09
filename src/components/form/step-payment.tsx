@@ -2,7 +2,6 @@
 
 import { useContractStore } from "@/stores/contract-store";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 
 export default function StepPayment() {
   const { data, setField } = useContractStore();
@@ -10,13 +9,23 @@ export default function StepPayment() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Pagamento</h2>
+      <h2
+        className="text-2xl font-extrabold"
+        style={{ fontFamily: "var(--font-display)", color: "#050b18" }}
+      >
+        Pagamento
+      </h2>
 
       {/* Valor mensal */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">Valor mensal</label>
+        <label className="text-sm font-medium" style={{ color: "#050b18" }}>
+          Valor mensal
+        </label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm font-medium">
+          <span
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold"
+            style={{ color: "rgba(5,11,24,0.4)" }}
+          >
             R$
           </span>
           <Input
@@ -34,9 +43,13 @@ export default function StepPayment() {
 
       {/* Dia de vencimento */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">Dia de vencimento</label>
+        <label className="text-sm font-medium" style={{ color: "#050b18" }}>
+          Dia de vencimento
+        </label>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground whitespace-nowrap">Todo dia</span>
+          <span className="text-sm whitespace-nowrap" style={{ color: "rgba(5,11,24,0.5)" }}>
+            Todo dia
+          </span>
           <Input
             type="number"
             min={1}
@@ -46,35 +59,39 @@ export default function StepPayment() {
             onChange={(e) => setField("paymentDueDay", Number(e.target.value))}
             className="w-20 text-center"
           />
-          <span className="text-sm text-muted-foreground whitespace-nowrap">de cada mês</span>
+          <span className="text-sm whitespace-nowrap" style={{ color: "rgba(5,11,24,0.5)" }}>
+            de cada mês
+          </span>
         </div>
       </div>
 
-      {/* Chave PIX */}
+      {/* Forma de pagamento */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">Forma de pagamento</label>
+        <label className="text-sm font-medium" style={{ color: "#050b18" }}>
+          Forma de pagamento
+        </label>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => setField("pixKey", hasPix ? data.pixKey ?? "" : "")}
-            className={cn(
-              "flex-1 rounded-lg border py-2.5 text-sm font-medium transition-colors",
+            className="flex-1 rounded-2xl py-2.5 text-sm font-medium transition-all duration-200 hover:scale-[1.01]"
+            style={
               hasPix
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-background hover:bg-accent"
-            )}
+                ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                : { background: "transparent", color: "rgba(5,11,24,0.6)", border: "1px solid rgba(5,11,24,0.15)" }
+            }
           >
             Pix
           </button>
           <button
             type="button"
             onClick={() => setField("pixKey", null)}
-            className={cn(
-              "flex-1 rounded-lg border py-2.5 text-sm font-medium transition-colors",
+            className="flex-1 rounded-2xl py-2.5 text-sm font-medium transition-all duration-200 hover:scale-[1.01]"
+            style={
               !hasPix
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-background hover:bg-accent"
-            )}
+                ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                : { background: "transparent", color: "rgba(5,11,24,0.6)", border: "1px solid rgba(5,11,24,0.15)" }
+            }
           >
             Outra forma
           </button>
@@ -90,7 +107,7 @@ export default function StepPayment() {
         )}
 
         {!hasPix && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs" style={{ color: "rgba(5,11,24,0.45)" }}>
             O contrato dirá que a forma de pagamento será combinada entre as partes.
           </p>
         )}
