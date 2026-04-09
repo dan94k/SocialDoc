@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import type { User } from "@supabase/supabase-js";
+import { useContractStore } from "@/stores/contract-store";
 
 const NAV_LINKS = [
   { label: "Novo Contrato", href: "/contrato", highlight: true },
@@ -18,6 +19,7 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const resetContract = useContractStore((s) => s.resetContract);
 
   useEffect(() => {
     const supabase = createClient();
@@ -35,6 +37,7 @@ export default function Navbar() {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
+      resetContract();
       router.push("/contrato");
     } else {
       await supabase.auth.signInWithOAuth({
@@ -74,15 +77,15 @@ export default function Navbar() {
           <div className="flex items-center gap-1">
             {NAV_LINKS.map((link) =>
               link.highlight ? (
-                <Link
+                <button
                   key={link.href}
-                  href={link.href}
+                  onClick={handleCriarContrato}
                   className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold ml-1 transition-all duration-200 hover:scale-[1.03]"
                   style={{ background: "#d4ff00", color: "#050b18" }}
                 >
                   <Plus className="h-3.5 w-3.5" />
                   {link.label}
-                </Link>
+                </button>
               ) : (
                 <Link
                   key={link.href}

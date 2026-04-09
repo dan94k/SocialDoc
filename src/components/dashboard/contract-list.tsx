@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { FileCheck, CalendarDays, ArrowRight, Plus } from "lucide-react";
 import type { ContractData } from "@/types/contract";
 import Link from "next/link";
+import { getContractType } from "@/lib/contracts";
 
 const PdfDownload = dynamic(() => import("@/components/pdf/pdf-download"), {
   ssr: false,
@@ -75,6 +76,9 @@ export default function ContractList({ contracts }: Props) {
           year: "numeric",
         });
 
+        const contractTypeId = (contract.data as ContractData & { contractTypeId?: string }).contractTypeId;
+        const contractType = contractTypeId ? getContractType(contractTypeId) : null;
+
         return (
           <div
             key={contract.id}
@@ -112,6 +116,17 @@ export default function ContractList({ contracts }: Props) {
                     {date}
                   </span>
                 </div>
+                {contractType && (
+                  <span
+                    className="inline-block mt-1 rounded-full px-2 py-0.5 text-xs font-semibold"
+                    style={{
+                      background: "rgba(5,11,24,0.06)",
+                      color: "rgba(5,11,24,0.5)",
+                    }}
+                  >
+                    {contractType.name}
+                  </span>
+                )}
               </div>
             </div>
 

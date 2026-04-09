@@ -19,6 +19,7 @@ interface ContractStore {
   prevStep: () => void;
   isStepValid: (step: number) => boolean;
   setContractType: (id: string) => void;
+  resetContract: () => void;
   saveToSession: () => void;
   restoreFromSession: () => boolean;
 }
@@ -116,6 +117,13 @@ export const useContractStore = create<ContractStore>((set, get) => ({
   setContractType: (id) =>
     set({
       selectedContractTypeId: id,
+      currentStep: 0,
+      data: { ...DEFAULT_DATA, clauses: { ...DEFAULT_DATA.clauses } },
+    }),
+
+  resetContract: () =>
+    set({
+      selectedContractTypeId: null,
       currentStep: 0,
       data: { ...DEFAULT_DATA, clauses: { ...DEFAULT_DATA.clauses } },
     }),

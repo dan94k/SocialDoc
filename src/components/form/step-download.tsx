@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useContractStore } from "@/stores/contract-store";
 import { formatBRL } from "@/lib/utils";
-import { FileCheck, Crown, Loader2 } from "lucide-react";
+import { FileCheck, Crown, Loader2, LayoutList } from "lucide-react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
@@ -21,7 +21,10 @@ const PdfDownload = dynamic(() => import("@/components/pdf/pdf-download"), {
   ),
 });
 
-async function saveContractToSupabase(data: ReturnType<typeof useContractStore.getState>["data"]) {
+async function saveContractToSupabase(
+  data: ReturnType<typeof useContractStore.getState>["data"],
+  contractTypeId: string | null
+) {
   try {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -29,7 +32,7 @@ async function saveContractToSupabase(data: ReturnType<typeof useContractStore.g
     await supabase.from("contracts").insert({
       user_id: user.id,
       client_name: data.clientName || "Cliente",
-      data: data,
+      data: { ...data, contractTypeId: contractTypeId ?? undefined },
     });
   } catch {
     // Silently fail — contract download proceeds regardless
@@ -37,7 +40,7 @@ async function saveContractToSupabase(data: ReturnType<typeof useContractStore.g
 }
 
 export default function StepDownload() {
-  const { data, restoreFromSession, prevStep } = useContractStore();
+  const { data, selectedContractTypeId, restoreFromSession } = useContractStore();
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -122,7 +125,7 @@ export default function StepDownload() {
                 </div>
                 <span className="text-sm font-medium" style={{ color: "rgba(5,11,24,0.5)" }}>Grátis</span>
               </div>
-              <div onClick={() => saveContractToSupabase(data)}>
+              <div onClick={() => saveContractToSupabase(data, selectedContractTypeId)}>
                 <PdfDownload data={data} showWatermark={true} />
               </div>
             </div>
@@ -155,7 +158,7 @@ export default function StepDownload() {
                 )}
               </div>
               {isSubscribed ? (
-                <div onClick={() => saveContractToSupabase(data)}>
+                <div onClick={() => saveContractToSupabase(data, selectedContractTypeId)}>
                   <PdfDownload data={data} showWatermark={false} variant="lime" />
                 </div>
               ) : (
@@ -173,15 +176,14 @@ export default function StepDownload() {
         )}
       </div>
 
-      <button
-        onClick={prevStep}
-        className="w-full rounded-2xl py-2.5 text-sm font-medium transition-colors"
+      <Link
+        href="/dashboard"
+        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl py-2.5 text-sm font-medium transition-colors"
         style={{ color: "rgba(5,11,24,0.45)", background: "transparent" }}
-        onMouseEnter={e => (e.currentTarget.style.color = "#050b18")}
-        onMouseLeave={e => (e.currentTarget.style.color = "rgba(5,11,24,0.45)")}
       >
-        Voltar e editar
-      </button>
+        <LayoutList className="h-4 w-4" />
+        Ir para contratos
+      </Link>
     </div>
   );
 }
