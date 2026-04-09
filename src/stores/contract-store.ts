@@ -1,9 +1,11 @@
 import { create } from "zustand";
-import type { ContractData, DocType } from "@/types/contract";
+import type { ContractData } from "@/types/contract";
+import { getContractType } from "@/lib/contracts";
 
 interface ContractStore {
   data: ContractData;
   currentStep: number;
+  selectedContractTypeId: string | null;
   setField: <K extends keyof ContractData>(key: K, value: ContractData[K]) => void;
   setClauseField: <C extends keyof ContractData["clauses"]>(
     clause: C,
@@ -16,6 +18,7 @@ interface ContractStore {
   nextStep: () => void;
   prevStep: () => void;
   isStepValid: (step: number) => boolean;
+  setContractType: (id: string) => void;
   saveToSession: () => void;
   restoreFromSession: () => boolean;
 }
@@ -61,15 +64,10 @@ const DEFAULT_DATA: ContractData = {
   durationMonths: 6,
 };
 
-function isDocValid(docType: DocType | null, doc: string): boolean {
-  if (docType === null) return false;
-  if (docType === "nao-fornecer") return true;
-  return doc.trim().length > 0;
-}
-
 export const useContractStore = create<ContractStore>((set, get) => ({
   data: { ...DEFAULT_DATA, clauses: { ...DEFAULT_DATA.clauses } },
   currentStep: 0,
+  selectedContractTypeId: null,
 
   setField: (key, value) =>
     set((state) => ({ data: { ...state.data, [key]: value } })),
@@ -108,39 +106,36 @@ export const useContractStore = create<ContractStore>((set, get) => ({
   prevStep: () => set((state) => ({ currentStep: Math.max(0, state.currentStep - 1) })),
 
   isStepValid: (step: number) => {
-    const { data } = get();
-    switch (step) {
-      case 0:
-        return data.freelancerName.trim().length > 0 && isDocValid(data.freelancerDocType, data.freelancerDoc);
-      case 1:
-        return data.clientName.trim().length > 0 && isDocValid(data.clientDocType, data.clientDoc);
-      case 2:
-        return data.platforms.length > 0;
-      case 3: // scope — always valid
-        return true;
-      case 4:
-        return data.monthlyPrice > 0 && data.paymentDueDay >= 1 && data.paymentDueDay <= 31;
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
-        return true;
-      case 10:
-        return data.durationMonths > 0;
-      default:
-        return true;
-    }
+    const { data, selectedContractTypeId } = get();
+    if (!selectedContractTypeId) return false;
+    const config = getContractType(selectedContractTypeId);
+    if (!config || step >= config.steps.length) return true;
+    return config.steps[step].validate(data);
   },
 
+  setContractType: (id) =>
+    set({
+      selectedContractTypeId: id,
+      currentStep: 0,
+      data: { ...DEFAULT_DATA, clauses: { ...DEFAULT_DATA.clauses } },
+    }),
+
   saveToSession: () => {
-    sessionStorage.setItem("socialdoc-contract", JSON.stringify(get().data));
+    const { data, selectedContractTypeId } = get();
+    sessionStorage.setItem(
+      "socialdoc-contract",
+      JSON.stringify({ data, selectedContractTypeId })
+    );
   },
 
   restoreFromSession: () => {
     const saved = sessionStorage.getItem("socialdoc-contract");
     if (saved) {
-      set({ data: JSON.parse(saved) });
+      const parsed = JSON.parse(saved);
+      set({
+        data: parsed.data,
+        selectedContractTypeId: parsed.selectedContractTypeId ?? null,
+      });
       return true;
     }
     return false;

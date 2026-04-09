@@ -1,44 +1,18 @@
 "use client";
 
 import { useContractStore } from "@/stores/contract-store";
-import { STEP_TITLES, TOTAL_STEPS } from "@/lib/constants";
+import { getContractType } from "@/lib/contracts";
+import { STEP_REGISTRY } from "@/lib/component-registry";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import StepFreelancer from "./step-freelancer";
-import StepClient from "./step-client";
-import StepPlatforms from "./step-platforms";
-import StepScope from "./step-scope";
-import StepPayment from "./step-payment";
-import ClauseRevision from "./clause-revision";
-import ClauseApproval from "./clause-approval";
-import ClauseScopeExtras from "./clause-scope-extras";
-import ClauseCancellation from "./clause-cancellation";
-import ClauseFilesPayment from "./clause-files-payment";
-import StepDuration from "./step-duration";
-import StepReview from "./step-review";
-import StepDownload from "./step-download";
-
-const STEPS = [
-  StepFreelancer,
-  StepClient,
-  StepPlatforms,
-  StepScope,
-  StepPayment,
-  ClauseRevision,
-  ClauseApproval,
-  ClauseScopeExtras,
-  ClauseCancellation,
-  ClauseFilesPayment,
-  StepDuration,
-  StepReview,
-  StepDownload,
-];
-
 export default function FormShell() {
-  const { currentStep, nextStep, prevStep, isStepValid } = useContractStore();
-  const StepComponent = STEPS[currentStep];
-  const isLast = currentStep === TOTAL_STEPS - 1;
-  const progress = ((currentStep + 1) / TOTAL_STEPS) * 100;
+  const { currentStep, nextStep, prevStep, isStepValid, selectedContractTypeId } = useContractStore();
+  const config = getContractType(selectedContractTypeId ?? "")!;
+  const totalSteps = config.steps.length;
+  const stepConfig = config.steps[currentStep];
+  const StepComponent = STEP_REGISTRY[stepConfig.componentKey];
+  const isLast = currentStep === totalSteps - 1;
+  const progress = ((currentStep + 1) / totalSteps) * 100;
 
   return (
     <div
@@ -50,10 +24,10 @@ export default function FormShell() {
         {/* Progress header */}
         <div className="mb-3 flex items-center justify-between">
           <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "rgba(5,11,24,0.4)" }}>
-            {currentStep + 1} de {TOTAL_STEPS}
+            {currentStep + 1} de {totalSteps}
           </span>
           <span className="text-xs font-semibold" style={{ color: "rgba(5,11,24,0.5)" }}>
-            {STEP_TITLES[currentStep]}
+            {stepConfig.title}
           </span>
         </div>
 
