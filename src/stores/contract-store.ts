@@ -63,6 +63,28 @@ const DEFAULT_DATA: ContractData = {
     },
   },
   durationMonths: 6,
+  packageArtTypes: [],
+  packageTotalItems: 10,
+  packageDeliveryDays: 14,
+  packagePrice: 0,
+  packagePaymentType: "split" as const,
+  packagePixKey: null,
+  packageClauses: {
+    revision: {
+      enabled: true,
+      maxRevisions: 2,
+      requestDays: 3,
+      chargeExtra: false,
+      extraValue: 0,
+    },
+    cancellation: {
+      enabled: true,
+      penaltyPercent: 50,
+    },
+    filesPayment: {
+      enabled: true,
+    },
+  },
 };
 
 export const useContractStore = create<ContractStore>((set, get) => ({

@@ -1,12 +1,13 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { ChevronRight, LayoutDashboard } from "lucide-react";
+import { ChevronRight, LayoutDashboard, Package } from "lucide-react";
 import { CONTRACT_TYPES } from "@/lib/contracts";
 import type { LucideProps } from "lucide-react";
 
 const ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   LayoutDashboard,
+  Package,
 };
 
 interface Props {

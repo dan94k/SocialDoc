@@ -13,7 +13,15 @@ import ClauseFilesPayment from "@/components/form/clause-files-payment";
 import StepDuration from "@/components/form/step-duration";
 import StepReview from "@/components/form/step-review";
 import StepDownload from "@/components/form/step-download";
+import StepPackageScope from "@/components/form/step-package-scope";
+import StepPackagePayment from "@/components/form/step-package-payment";
+import StepPackageDeadline from "@/components/form/step-package-deadline";
+import ClausePackageRevision from "@/components/form/clause-package-revision";
+import ClausePackageCancellation from "@/components/form/clause-package-cancellation";
+import ClausePackageFiles from "@/components/form/clause-package-files";
+import StepPackageReview from "@/components/form/step-package-review";
 import ContractDocument from "@/components/pdf/contract-document";
+import ContractDocumentPackage from "@/components/pdf/contract-document-package";
 
 export const STEP_REGISTRY: StepComponentRegistry = {
   StepFreelancer,
@@ -29,8 +37,16 @@ export const STEP_REGISTRY: StepComponentRegistry = {
   StepDuration,
   StepReview,
   StepDownload,
+  StepPackageScope,
+  StepPackagePayment,
+  StepPackageDeadline,
+  ClausePackageRevision,
+  ClausePackageCancellation,
+  ClausePackageFiles,
+  StepPackageReview,
 };
 
 export const PDF_REGISTRY: PdfComponentRegistry = {
   SocialMediaContract: ContractDocument,
+  PackageArtsContract: ContractDocumentPackage,
 };

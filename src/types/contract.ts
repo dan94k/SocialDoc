@@ -1,4 +1,5 @@
 export type DocType = "CPF" | "CNPJ" | "nao-fornecer";
+export type PackagePaymentType = "upfront" | "onDelivery" | "split";
 
 export interface RevisionClause {
   enabled: boolean;
@@ -35,6 +36,29 @@ export interface ContractClauses {
   filesPayment: FilesPaymentClause;
 }
 
+export interface PackageRevisionClause {
+  enabled: boolean;
+  maxRevisions: number;
+  requestDays: number;
+  chargeExtra: boolean;
+  extraValue: number;
+}
+
+export interface PackageCancellationClause {
+  enabled: boolean;
+  penaltyPercent: number;
+}
+
+export interface PackageFilesClause {
+  enabled: boolean;
+}
+
+export interface PackageClauses {
+  revision: PackageRevisionClause;
+  cancellation: PackageCancellationClause;
+  filesPayment: PackageFilesClause;
+}
+
 export interface ContractData {
   freelancerName: string;
   freelancerDocType: DocType | null;
@@ -51,4 +75,12 @@ export interface ContractData {
   pixKey: string | null;
   clauses: ContractClauses;
   durationMonths: number;
+  // Package arts contract fields
+  packageArtTypes?: string[];
+  packageTotalItems?: number;
+  packageDeliveryDays?: number;
+  packagePrice?: number;
+  packagePaymentType?: PackagePaymentType;
+  packagePixKey?: string | null;
+  packageClauses?: PackageClauses;
 }

@@ -32,6 +32,15 @@ export const AUXILIARY_SERVICES = [
   { id: "visualIdentity", label: "Criação de identidade visual" },
 ];
 
+export const PACKAGE_ART_TYPES = [
+  { id: "staticArt", label: "Arte estática" },
+  { id: "carousel", label: "Carrossel" },
+  { id: "reels", label: "Reels / Edição curta" },
+  { id: "longVideo", label: "Edição de vídeo longo" },
+  { id: "stories", label: "Stories" },
+  { id: "motion", label: "Motion / Animação" },
+] as const;
+
 export const STEP_TITLES = [
   "Seus dados",
   "Dados do cliente",
