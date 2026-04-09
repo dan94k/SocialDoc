@@ -89,9 +89,12 @@ export default function ContractList({ contracts }: Props) {
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-                style={{ background: "#050b18" }}
+                style={{
+                  background: "rgba(5,11,24,0.06)",
+                  border: "1px solid rgba(5,11,24,0.1)",
+                }}
               >
-                <FileCheck className="h-4 w-4" style={{ color: "#d4ff00" }} />
+                <FileCheck className="h-4 w-4" style={{ color: "#050b18" }} />
               </div>
               <div className="min-w-0">
                 <p

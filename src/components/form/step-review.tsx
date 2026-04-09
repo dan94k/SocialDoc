@@ -24,9 +24,12 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg border p-4 space-y-1">
+    <div
+      className="rounded-2xl p-4 space-y-1"
+      style={{ border: "1px solid rgba(5,11,24,0.09)", background: "rgba(5,11,24,0.01)" }}
+    >
       <div className="flex items-center gap-2 mb-2">
-        <Icon className="h-4 w-4 text-primary" />
+        <Icon className="h-4 w-4" style={{ color: "rgba(5,11,24,0.4)" }} />
         <span className="text-sm font-semibold">{title}</span>
       </div>
       {children}

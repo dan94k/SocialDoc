@@ -24,8 +24,11 @@ export default function ClauseShell({
     <div className="space-y-5">
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-          <ShieldCheck className="h-5 w-5 text-primary" />
+        <div
+          className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl"
+          style={{ background: "rgba(5,11,24,0.07)" }}
+        >
+          <ShieldCheck className="h-5 w-5" style={{ color: "#050b18" }} />
         </div>
         <div>
           <h2 className="text-xl font-bold">{title}</h2>
@@ -34,9 +37,15 @@ export default function ClauseShell({
       </div>
 
       {/* Insight box */}
-      <div className="flex gap-2 rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm text-amber-800">
-        <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
-        <p>{insight}</p>
+      <div
+        className="flex gap-2 rounded-2xl p-3 text-sm"
+        style={{
+          background: "rgba(5,11,24,0.04)",
+          border: "1px solid rgba(5,11,24,0.08)",
+        }}
+      >
+        <Info className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "rgba(5,11,24,0.45)" }} />
+        <p style={{ color: "rgba(5,11,24,0.6)" }}>{insight}</p>
       </div>
 
       {/* Enable toggle */}
@@ -46,14 +55,14 @@ export default function ClauseShell({
             key={String(val)}
             type="button"
             onClick={() => onToggle(val)}
-            className={cn(
-              "flex-1 rounded-lg border py-2.5 text-sm font-medium transition-colors",
+            className="flex-1 rounded-2xl border py-2.5 text-sm font-medium transition-all duration-200"
+            style={
               enabled === val
                 ? val
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-destructive bg-destructive/10 text-destructive"
-                : "border-border bg-background hover:bg-accent"
-            )}
+                  ? { background: "#050b18", color: "#ffffff", border: "1px solid #050b18" }
+                  : { background: "rgba(5,11,24,0.06)", color: "#050b18", border: "1px solid rgba(5,11,24,0.15)" }
+                : { background: "transparent", color: "rgba(5,11,24,0.5)", border: "1px solid rgba(5,11,24,0.12)" }
+            }
           >
             {val ? "Sim, incluir" : "Não incluir"}
           </button>
@@ -62,7 +71,12 @@ export default function ClauseShell({
 
       {/* Custom fields — only shown when enabled */}
       {enabled && children && (
-        <div className="space-y-4 rounded-lg border p-4">{children}</div>
+        <div
+          className="space-y-4 rounded-2xl p-4"
+          style={{ border: "1px solid rgba(5,11,24,0.1)", background: "rgba(5,11,24,0.02)" }}
+        >
+          {children}
+        </div>
       )}
     </div>
   );

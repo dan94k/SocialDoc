@@ -112,12 +112,13 @@ export default function SubscriptionTab({ subscription, purchases, showSubscribe
                 <div
                   className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: isCanceling ? "rgba(249,115,22,0.1)" : "#050b18",
+                    background: isCanceling ? "rgba(5,11,24,0.06)" : "#050b18",
+                    border: isCanceling ? "1px solid rgba(5,11,24,0.1)" : "none",
                   }}
                 >
                   <Crown
                     className="h-5 w-5"
-                    style={{ color: isCanceling ? "#f97316" : "#d4ff00" }}
+                    style={{ color: isCanceling ? "rgba(5,11,24,0.35)" : "#d4ff00" }}
                   />
                 </div>
                 <div>

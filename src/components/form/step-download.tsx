@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useContractStore } from "@/stores/contract-store";
-import { Button } from "@/components/ui/button";
 import { formatBRL } from "@/lib/utils";
-import { CheckCircle, Crown, Loader2 } from "lucide-react";
+import { FileCheck, Crown, Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
@@ -12,9 +11,13 @@ import Link from "next/link";
 const PdfDownload = dynamic(() => import("@/components/pdf/pdf-download"), {
   ssr: false,
   loading: () => (
-    <Button disabled className="w-full">
+    <button
+      disabled
+      className="w-full rounded-2xl px-4 py-2.5 text-sm font-semibold opacity-60"
+      style={{ background: "rgba(5,11,24,0.06)", border: "1px solid rgba(5,11,24,0.1)", color: "#050b18" }}
+    >
       Carregando...
-    </Button>
+    </button>
   ),
 });
 
@@ -49,7 +52,6 @@ export default function StepDownload() {
       }
 
       if (user) {
-        // Fonte primária: tabela subscriptions
         const { data: sub } = await supabase
           .from("subscriptions")
           .select("status")
@@ -60,7 +62,6 @@ export default function StepDownload() {
         if (sub) {
           setIsSubscribed(true);
         } else {
-          // Fallback: tabela purchases (caso webhook não tenha chegado)
           const { data: purchase } = await supabase
             .from("purchases")
             .select("id")
@@ -79,35 +80,54 @@ export default function StepDownload() {
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <CheckCircle className="mx-auto h-12 w-12 text-primary" />
-        <h2 className="text-2xl font-bold">Seu contrato está pronto!</h2>
-        <p className="text-muted-foreground">
+      {/* Header */}
+      <div className="text-center space-y-3">
+        <div
+          className="mx-auto w-14 h-14 rounded-3xl flex items-center justify-center"
+          style={{ background: "rgba(5,11,24,0.07)" }}
+        >
+          <FileCheck className="h-7 w-7" style={{ color: "#050b18" }} />
+        </div>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+          Seu contrato está pronto!
+        </h2>
+        <p className="text-muted-foreground text-sm">
           Contrato para <strong>{data.clientName}</strong> no valor de{" "}
           <strong>{formatBRL(data.monthlyPrice)}</strong>/mês.
         </p>
         {isSubscribed && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
+            style={{ background: "rgba(5,11,24,0.07)", color: "#050b18" }}
+          >
             <Crown className="h-3 w-3" />
             Assinante Ilimitado
           </span>
         )}
       </div>
 
+      {/* Download options */}
       <div className="space-y-3">
         {isLoading ? (
-          <Button disabled className="w-full">
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <button
+            disabled
+            className="w-full rounded-2xl px-4 py-2.5 text-sm font-semibold flex items-center justify-center gap-2 opacity-60"
+            style={{ background: "rgba(5,11,24,0.06)", border: "1px solid rgba(5,11,24,0.1)", color: "#050b18" }}
+          >
+            <Loader2 className="h-4 w-4 animate-spin" />
             Verificando acesso...
-          </Button>
+          </button>
         ) : (
           <>
-            {/* Free download with watermark */}
-            <div className="rounded-lg border p-4 space-y-3">
+            {/* Free download */}
+            <div
+              className="rounded-2xl p-4 space-y-3"
+              style={{ border: "1px solid rgba(5,11,24,0.1)", background: "rgba(5,11,24,0.02)" }}
+            >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium">Download gratuito</p>
-                  <p className="text-sm text-muted-foreground">PDF com marca d&apos;agua</p>
+                  <p className="font-semibold text-sm">Download gratuito</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">PDF com faixa de avaliação</p>
                 </div>
                 <span className="text-sm font-medium text-muted-foreground">Grátis</span>
               </div>
@@ -117,14 +137,27 @@ export default function StepDownload() {
             </div>
 
             {/* Professional download */}
-            <div className="rounded-lg border-2 border-primary p-4 space-y-3">
+            <div
+              className="rounded-2xl p-4 space-y-3"
+              style={{
+                border: "2px solid #050b18",
+                background: "#050b18",
+              }}
+            >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium">Download profissional</p>
-                  <p className="text-sm text-muted-foreground">PDF limpo, sem marca d&apos;agua</p>
+                  <p className="font-semibold text-sm" style={{ color: "#ffffff" }}>
+                    Download profissional
+                  </p>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    PDF limpo, sem faixa de avaliação
+                  </p>
                 </div>
                 {isSubscribed && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                  <span
+                    className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold"
+                    style={{ background: "rgba(212,255,0,0.15)", color: "#d4ff00" }}
+                  >
                     <Crown className="h-3 w-3" />
                     Incluído
                   </span>
@@ -137,7 +170,8 @@ export default function StepDownload() {
               ) : (
                 <Link
                   href="/assinar"
-                  className="flex items-center justify-center gap-2 w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
+                  className="flex items-center justify-center gap-2 w-full rounded-2xl px-4 py-2.5 text-sm font-bold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  style={{ background: "#d4ff00", color: "#050b18" }}
                 >
                   <Crown className="h-4 w-4" />
                   Assinar por R$ 10/mês (ilimitado)
@@ -148,9 +182,15 @@ export default function StepDownload() {
         )}
       </div>
 
-      <Button variant="ghost" onClick={prevStep} className="w-full">
+      <button
+        onClick={prevStep}
+        className="w-full rounded-2xl py-2.5 text-sm font-medium transition-colors"
+        style={{ color: "rgba(5,11,24,0.45)", background: "transparent" }}
+        onMouseEnter={e => (e.currentTarget.style.color = "#050b18")}
+        onMouseLeave={e => (e.currentTarget.style.color = "rgba(5,11,24,0.45)")}
+      >
         Voltar e editar
-      </Button>
+      </button>
     </div>
   );
 }
