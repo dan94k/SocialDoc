@@ -3,22 +3,29 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Download, Loader2 } from "lucide-react";
 import ContractDocument from "./contract-document";
+import GenericContractDocument from "./generic-contract-document";
 import type { ContractData } from "@/types/contract";
+import type { GenericContractTypeConfig } from "@/types/contract-engine";
 
 interface Props {
   data: ContractData;
   showWatermark: boolean;
   variant?: "default" | "lime";
+  config?: GenericContractTypeConfig;
 }
 
-export default function PdfDownload({ data, showWatermark, variant = "default" }: Props) {
+export default function PdfDownload({ data, showWatermark, variant = "default", config }: Props) {
   const filename = showWatermark
     ? `contrato-${data.clientName.toLowerCase().replace(/\s+/g, "-")}-avaliacao.pdf`
     : `contrato-${data.clientName.toLowerCase().replace(/\s+/g, "-")}.pdf`;
 
+  const document = config
+    ? <GenericContractDocument data={data} config={config} showWatermark={showWatermark} />
+    : <ContractDocument data={data} showWatermark={showWatermark} />;
+
   return (
     <PDFDownloadLink
-      document={<ContractDocument data={data} showWatermark={showWatermark} />}
+      document={document}
       fileName={filename}
       className="block w-full"
     >

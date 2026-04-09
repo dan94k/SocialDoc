@@ -2,7 +2,9 @@
 
 import { useContractStore } from "@/stores/contract-store";
 import { getContractType } from "@/lib/contracts";
-import { STEP_REGISTRY } from "@/lib/component-registry";
+import GenericStep from "@/components/form/generic-step";
+import GenericReview from "@/components/form/generic-review";
+import StepDownload from "@/components/form/step-download";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function FormShell() {
@@ -10,7 +12,6 @@ export default function FormShell() {
   const config = getContractType(selectedContractTypeId ?? "")!;
   const totalSteps = config.steps.length;
   const stepConfig = config.steps[currentStep];
-  const StepComponent = STEP_REGISTRY[stepConfig.componentKey];
   const isLast = currentStep === totalSteps - 1;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
@@ -55,7 +56,13 @@ export default function FormShell() {
             key={currentStep}
             className="animate-in fade-in slide-in-from-right-4 duration-200"
           >
-            <StepComponent />
+            {stepConfig.builtIn === "download" ? (
+              <StepDownload />
+            ) : stepConfig.builtIn === "review" ? (
+              <GenericReview config={config} />
+            ) : (
+              <GenericStep step={stepConfig} />
+            )}
           </div>
 
           {/* Navigation */}

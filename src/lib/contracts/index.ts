@@ -1,12 +1,12 @@
 import { socialMediaMonthlyConfig } from "./social-media-monthly";
 import { packageArtsConfig } from "./package-arts";
-import type { ContractTypeConfig } from "@/types/contract-config";
+import type { GenericContractTypeConfig } from "@/types/contract-engine";
 
-export const CONTRACT_TYPES: ContractTypeConfig[] = [
+export const CONTRACT_TYPES: GenericContractTypeConfig[] = [
   socialMediaMonthlyConfig,
   packageArtsConfig,
 ];
 
-export function getContractType(id: string): ContractTypeConfig | undefined {
+export function getContractType(id: string): GenericContractTypeConfig | undefined {
   return CONTRACT_TYPES.find((c) => c.id === id);
 }

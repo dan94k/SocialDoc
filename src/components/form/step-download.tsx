@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useContractStore } from "@/stores/contract-store";
-import { formatBRL } from "@/lib/utils";
+import { getContractType } from "@/lib/contracts";
 import { FileCheck, Crown, Loader2, LayoutList } from "lucide-react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
@@ -41,6 +41,7 @@ async function saveContractToSupabase(
 
 export default function StepDownload() {
   const { data, selectedContractTypeId, restoreFromSession } = useContractStore();
+  const config = getContractType(selectedContractTypeId ?? "");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -95,8 +96,7 @@ export default function StepDownload() {
           Seu contrato está pronto!
         </h2>
         <p className="text-sm" style={{ color: "rgba(5,11,24,0.5)" }}>
-          Contrato para <strong style={{ color: "#050b18" }}>{data.clientName}</strong> no valor de{" "}
-          <strong style={{ color: "#050b18" }}>{formatBRL(data.monthlyPrice)}</strong>/mês.
+          Contrato para <strong style={{ color: "#050b18" }}>{data.clientName}</strong>.
         </p>
       </div>
 
@@ -126,7 +126,7 @@ export default function StepDownload() {
                 <span className="text-sm font-medium" style={{ color: "rgba(5,11,24,0.5)" }}>Grátis</span>
               </div>
               <div onClick={() => saveContractToSupabase(data, selectedContractTypeId)}>
-                <PdfDownload data={data} showWatermark={true} />
+                <PdfDownload data={data} showWatermark={true} config={config} />
               </div>
             </div>
 
@@ -159,7 +159,7 @@ export default function StepDownload() {
               </div>
               {isSubscribed ? (
                 <div onClick={() => saveContractToSupabase(data, selectedContractTypeId)}>
-                  <PdfDownload data={data} showWatermark={false} variant="lime" />
+                  <PdfDownload data={data} showWatermark={false} variant="lime" config={config} />
                 </div>
               ) : (
                 <Link
