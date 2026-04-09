@@ -10,9 +10,9 @@ export default function StepDuration() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Duracao do contrato</h2>
+      <h2 className="text-2xl font-bold">Duração do contrato</h2>
       <p className="text-muted-foreground">
-        Por quantos meses o contrato tera vigencia?
+        Por quantos meses o contrato terá vigência?
       </p>
       <div className="flex gap-3">
         {OPTIONS.map((months) => (

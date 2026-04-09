@@ -32,7 +32,7 @@ export default function PdfDownload({ data, showWatermark }: Props) {
           {loading
             ? "Gerando PDF..."
             : showWatermark
-              ? "Baixar gratis (com marca d'agua)"
+              ? "Baixar grátis (com marca d'água)"
               : "Baixar PDF profissional"}
         </Button>
       )}

@@ -17,7 +17,7 @@ export default function StepPlatforms() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Quais plataformas voce vai atender?</h2>
+      <h2 className="text-2xl font-bold">Quais plataformas você vai atender?</h2>
       <p className="text-muted-foreground">Selecione todas que se aplicam.</p>
       <div className="flex flex-wrap gap-2">
         {PLATFORMS.map((platform) => {

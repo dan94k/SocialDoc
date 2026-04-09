@@ -81,10 +81,10 @@ export default function StepDownload() {
     <div className="space-y-6">
       <div className="text-center space-y-2">
         <CheckCircle className="mx-auto h-12 w-12 text-primary" />
-        <h2 className="text-2xl font-bold">Seu contrato esta pronto!</h2>
+        <h2 className="text-2xl font-bold">Seu contrato está pronto!</h2>
         <p className="text-muted-foreground">
           Contrato para <strong>{data.clientName}</strong> no valor de{" "}
-          <strong>{formatBRL(data.monthlyPrice)}</strong>/mes.
+          <strong>{formatBRL(data.monthlyPrice)}</strong>/mês.
         </p>
         {isSubscribed && (
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
@@ -109,7 +109,7 @@ export default function StepDownload() {
                   <p className="font-medium">Download gratuito</p>
                   <p className="text-sm text-muted-foreground">PDF com marca d&apos;agua</p>
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">Gratis</span>
+                <span className="text-sm font-medium text-muted-foreground">Grátis</span>
               </div>
               <div onClick={() => saveContractToSupabase(data)}>
                 <PdfDownload data={data} showWatermark={true} />
@@ -140,7 +140,7 @@ export default function StepDownload() {
                   className="flex items-center justify-center gap-2 w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/80"
                 >
                   <Crown className="h-4 w-4" />
-                  Assinar por R$ 10/mes (ilimitado)
+                  Assinar por R$ 10/mês (ilimitado)
                 </Link>
               )}
             </div>

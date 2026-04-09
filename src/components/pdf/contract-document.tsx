@@ -30,7 +30,7 @@ function formatDatePdf(): string {
 
 function numExt(n: number): string {
   const map: Record<number, string> = {
-    1: "um", 2: "dois", 3: "tres", 4: "quatro", 5: "cinco",
+    1: "um", 2: "dois", 3: "três", 4: "quatro", 5: "cinco",
     6: "seis", 7: "sete", 8: "oito", 9: "nove", 10: "dez",
     14: "quatorze", 15: "quinze", 20: "vinte", 30: "trinta",
     45: "quarenta e cinco", 60: "sessenta", 90: "noventa",
@@ -49,27 +49,27 @@ function buildClauses(data: ContractData): ClauseItem[] {
 
   if (clauses.revision.enabled) {
     const { maxRevisions, adjustmentDays, chargeExtra, extraValue } = clauses.revision;
-    let text = `Cada peca criativa tera direito a ate ${numExt(maxRevisions)} revisao(es) sem custo adicional, com prazo de ${numExt(adjustmentDays)} dia(s) util(eis) para o CONTRATANTE enviar o pedido de ajuste apos a entrega.`;
+    let text = `Cada peça criativa terá direito a até ${numExt(maxRevisions)} revisão(ões) sem custo adicional, com prazo de ${numExt(adjustmentDays)} dia(s) útil(eis) para o CONTRATANTE enviar o pedido de ajuste após a entrega.`;
     if (chargeExtra) {
       text += extraValue > 0
-        ? ` Revisoes excedentes serao cobradas no valor de ${formatBRLPdf(extraValue)} por revisao, mediante aprovacao previa do CONTRATANTE.`
-        : ` Revisoes excedentes serao orcadas e cobradas separadamente, mediante aprovacao previa do CONTRATANTE.`;
+        ? ` Revisões excedentes serão cobradas no valor de ${formatBRLPdf(extraValue)} por revisão, mediante aprovação prévia do CONTRATANTE.`
+        : ` Revisões excedentes serão orçadas e cobradas separadamente, mediante aprovação prévia do CONTRATANTE.`;
     }
-    items.push({ title: "Limite de Revisoes", text });
+    items.push({ title: "Limite de Revisões", text });
   }
 
   if (clauses.approval.enabled) {
     const { deadlineDays } = clauses.approval;
     items.push({
-      title: "Prazo de Aprovacao",
-      text: `O CONTRATANTE tera o prazo de ${numExt(deadlineDays)} dia(s) util(eis) para aprovar ou solicitar revisoes do material entregue. Decorrido o prazo sem manifestacao, o material sera considerado automaticamente aprovado e a CONTRATADA estara autorizada a realizar a publicacao.`,
+      title: "Prazo de Aprovação",
+      text: `O CONTRATANTE terá o prazo de ${numExt(deadlineDays)} dia(s) útil(eis) para aprovar ou solicitar revisões do material entregue. Decorrido o prazo sem manifestação, o material será considerado automaticamente aprovado e a CONTRATADA estará autorizada a realizar a publicação.`,
     });
   }
 
   if (clauses.scopeExtras.enabled) {
     items.push({
       title: "Extras Fora do Escopo",
-      text: "Demandas que extrapolem o escopo definido neste contrato serao orcadas separadamente e executadas somente apos aprovacao formal e por escrito do CONTRATANTE. A ausencia de aprovacao previa desobriga a CONTRATADA de executar a demanda.",
+      text: "Demandas que extrapolem o escopo definido neste contrato serão orçadas separadamente e executadas somente após aprovação formal e por escrito do CONTRATANTE. A ausência de aprovação prévia desobriga a CONTRATADA de executar a demanda.",
     });
   }
 
@@ -77,14 +77,14 @@ function buildClauses(data: ContractData): ClauseItem[] {
     const { noticeDays, penaltyPercent } = clauses.cancellation;
     items.push({
       title: "Multa por Cancelamento",
-      text: `Em caso de rescisao antecipada por qualquer das partes com aviso previo inferior a ${numExt(noticeDays)} dia(s), sera devida multa equivalente a ${penaltyPercent}% (${numExt(penaltyPercent)} por cento) do valor mensal vigente, a ser paga pela parte que descumpriu o prazo.`,
+      text: `Em caso de rescisão antecipada por qualquer das partes com aviso prévio inferior a ${numExt(noticeDays)} dia(s), será devida multa equivalente a ${penaltyPercent}% (${numExt(penaltyPercent)} por cento) do valor mensal vigente, a ser paga pela parte que descumpriu o prazo.`,
     });
   }
 
   if (clauses.filesPayment.enabled) {
     items.push({
-      title: "Arquivos Editaveis Apos Pagamento",
-      text: "Os arquivos editaveis (fontes abertas, arquivos-fonte) das pecas produzidas serao entregues ao CONTRATANTE somente apos a quitacao integral de todos os valores devidos. A CONTRATADA podera reter os arquivos enquanto houver pendencia financeira.",
+      title: "Arquivos Editáveis Após Pagamento",
+      text: "Os arquivos editáveis (fontes abertas, arquivos-fonte) das peças produzidas serão entregues ao CONTRATANTE somente após a quitação integral de todos os valores devidos. A CONTRATADA poderá reter os arquivos enquanto houver pendência financeira.",
     });
   }
 
@@ -103,7 +103,7 @@ export default function ContractDocument({ data, showWatermark }: Props) {
           <>
             <View style={styles.freeBannerTop} fixed>
               <Text style={styles.freeBannerText}>
-                Versao de avaliacao gratuita — Gerado pelo plano free do SocialDoc. Este documento nao possui validade juridica.
+                Versão de avaliação gratuita — Gerada pelo plano free do SocialDoc. Este documento não possui validade jurídica.
               </Text>
             </View>
             <View style={styles.freeBannerBottom} fixed>
@@ -116,7 +116,7 @@ export default function ContractDocument({ data, showWatermark }: Props) {
 
         {/* Title */}
         <Text style={styles.title}>
-          Contrato de Prestacao de Servicos{"\n"}de Social Media
+          Contrato de Prestação de Serviços{"\n"}de Social Media
         </Text>
 
         {/* 1. DAS PARTES */}
@@ -146,14 +146,14 @@ export default function ContractDocument({ data, showWatermark }: Props) {
             const platformList = data.platforms.join(", ");
             const contentPart =
               contentLabels.length > 0
-                ? `Criacao de ${contentLabels.join(", ").toLowerCase()}`
-                : "Criacao de conteudo";
-            return `${contentPart} para as plataformas ${platformList}, com um total de ${data.totalPieces} pecas por mes, divididas de acordo com a necessidade da marca.`;
+                ? `Criação de ${contentLabels.join(", ").toLowerCase()}`
+                : "Criação de conteúdo";
+            return `${contentPart} para as plataformas ${platformList}, com um total de ${data.totalPieces} peças por mês, divididas de acordo com a necessidade da marca.`;
           })()}
         </Text>
         {data.auxiliaryServices.length > 0 && (
           <Text style={styles.paragraph}>
-            {"Servicos complementares inclusos: "}
+            {"Serviços complementares inclusos: "}
             {data.auxiliaryServices
               .map((id) => AUXILIARY_SERVICES.find((s) => s.id === id)?.label ?? "")
               .filter(Boolean)
@@ -165,27 +165,27 @@ export default function ContractDocument({ data, showWatermark }: Props) {
         {/* 3. DO VALOR E PAGAMENTO */}
         <Text style={styles.sectionTitle}>3. Do Valor e Pagamento</Text>
         <Text style={styles.paragraph}>
-          Pelos servicos prestados, o CONTRATANTE pagara a CONTRATADA o valor
+          Pelos serviços prestados, o CONTRATANTE pagará a CONTRATADA o valor
           mensal de{" "}
           <Text style={styles.bold}>{formatBRLPdf(data.monthlyPrice)}</Text>,
           com vencimento todo dia{" "}
-          <Text style={styles.bold}>{data.paymentDueDay}</Text> de cada mes.
+          <Text style={styles.bold}>{data.paymentDueDay}</Text> de cada mês.
         </Text>
         {data.pixKey !== null && data.pixKey.trim().length > 0 ? (
           <Text style={styles.paragraph}>
-            O pagamento sera realizado via PIX, utilizando a chave:{" "}
+            O pagamento será realizado via PIX, utilizando a chave:{" "}
             <Text style={styles.bold}>{data.pixKey}</Text>.
           </Text>
         ) : (
           <Text style={styles.paragraph}>
-            A forma de pagamento sera definida em comum acordo entre as partes.
+            A forma de pagamento será definida em comum acordo entre as partes.
           </Text>
         )}
 
         {/* 4. DAS CLAUSULAS ESPECIAIS */}
         {clauseItems.length > 0 && (
           <>
-            <Text style={styles.sectionTitle}>4. Das Clausulas Especiais</Text>
+            <Text style={styles.sectionTitle}>4. Das Cláusulas Especiais</Text>
             {clauseItems.map((clause, index) => (
               <View key={clause.title}>
                 <Text style={styles.clauseNumber}>
@@ -199,14 +199,14 @@ export default function ContractDocument({ data, showWatermark }: Props) {
 
         {/* DA VIGENCIA */}
         <Text style={styles.sectionTitle}>
-          {4 + sectionOffset}. Da Vigencia
+          {4 + sectionOffset}. Da Vigência
         </Text>
         <Text style={styles.paragraph}>
-          O presente contrato tera vigencia de{" "}
+          O presente contrato terá vigência de{" "}
           <Text style={styles.bold}>
             {data.durationMonths} (
             {data.durationMonths === 3
-              ? "tres"
+              ? "três"
               : data.durationMonths === 6
                 ? "seis"
                 : "doze"}
@@ -221,8 +221,8 @@ export default function ContractDocument({ data, showWatermark }: Props) {
           {5 + sectionOffset}. Do Foro
         </Text>
         <Text style={styles.paragraph}>
-          As partes elegem o foro da comarca do domicilio do CONTRATANTE para
-          dirimir quaisquer duvidas ou controversias oriundas deste contrato.
+          As partes elegem o foro da comarca do domicílio do CONTRATANTE para
+          dirimir quaisquer dúvidas ou controvérsias oriundas deste contrato.
         </Text>
 
         {/* Date */}

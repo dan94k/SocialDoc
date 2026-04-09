@@ -10,21 +10,21 @@ export default function ClauseApproval() {
 
   return (
     <ClauseShell
-      title="Prazo de aprovacao"
-      description="Tempo que o cliente tem para aprovar ou pedir alteracoes no material."
-      insight="Sem essa clausula, o cliente pode ficar semanas sem responder e depois dizer que nao aprovou. Com ela, o silencio vira aprovacao automatica — o que evita atrasos no seu cronograma de publicacao."
+      title="Prazo de aprovação"
+      description="Tempo que o cliente tem para aprovar ou pedir alterações no material."
+      insight="Sem essa cláusula, o cliente pode ficar semanas sem responder e depois dizer que não aprovou. Com ela, o silêncio vira aprovação automática — o que evita atrasos no seu cronograma de publicação."
       enabled={clause.enabled}
       onToggle={(v) => setClauseField("approval", "enabled", v)}
     >
       <ClauseNumberField
-        label="Prazo para aprovacao ou solicitacao de revisao"
+        label="Prazo para aprovação ou solicitação de revisão"
         value={clause.deadlineDays}
         onChange={(v) => setClauseField("approval", "deadlineDays", v)}
         min={1}
-        suffix={clause.deadlineDays === 1 ? "dia util" : "dias uteis"}
+        suffix={clause.deadlineDays === 1 ? "dia útil" : "dias úteis"}
       />
       <p className="text-xs text-muted-foreground">
-        Apos esse prazo sem resposta, o material e considerado automaticamente aprovado.
+        Após esse prazo sem resposta, o material é considerado automaticamente aprovado.
       </p>
     </ClauseShell>
   );

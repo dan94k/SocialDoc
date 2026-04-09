@@ -15,35 +15,35 @@ export interface ContentType {
 }
 
 export const CONTENT_TYPES: ContentType[] = [
-  { id: "staticPost", label: "Arte estatica (feed)", unit: "por mes" },
-  { id: "carousel", label: "Carrossel", unit: "por mes" },
-  { id: "reels", label: "Reels / TikTok / Shorts", unit: "por mes" },
+  { id: "staticPost", label: "Arte estática (feed)", unit: "por mês" },
+  { id: "carousel", label: "Carrossel", unit: "por mês" },
+  { id: "reels", label: "Reels / TikTok / Shorts", unit: "por mês" },
   { id: "stories", label: "Stories", unit: "por semana" },
-  { id: "feedVideo", label: "Video no feed", unit: "por mes" },
-  { id: "live", label: "Live", unit: "por mes" },
+  { id: "feedVideo", label: "Vídeo no feed", unit: "por mês" },
+  { id: "live", label: "Live", unit: "por mês" },
 ];
 
 export const AUXILIARY_SERVICES = [
-  { id: "respondComments", label: "Responder comentarios e DMs" },
-  { id: "captions", label: "Criacao de legendas e copies" },
+  { id: "respondComments", label: "Responder comentários e DMs" },
+  { id: "captions", label: "Criação de legendas e copies" },
   { id: "hashtags", label: "Pesquisa de hashtags" },
-  { id: "scheduling", label: "Agendamento de publicacoes" },
-  { id: "report", label: "Relatorio mensal de desempenho" },
-  { id: "visualIdentity", label: "Criacao de identidade visual" },
+  { id: "scheduling", label: "Agendamento de publicações" },
+  { id: "report", label: "Relatório mensal de desempenho" },
+  { id: "visualIdentity", label: "Criação de identidade visual" },
 ];
 
 export const STEP_TITLES = [
   "Seus dados",
   "Dados do cliente",
   "Plataformas",
-  "Escopo dos servicos",
+  "Escopo dos serviços",
   "Pagamento",
-  "Clausula: Revisoes",
-  "Clausula: Aprovacao",
-  "Clausula: Extras",
-  "Clausula: Cancelamento",
-  "Clausula: Arquivos",
-  "Duracao",
+  "Cláusula: Revisões",
+  "Cláusula: Aprovação",
+  "Cláusula: Extras",
+  "Cláusula: Cancelamento",
+  "Cláusula: Arquivos",
+  "Duração",
   "Resumo",
   "Seu contrato",
 ] as const;

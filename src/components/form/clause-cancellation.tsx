@@ -11,13 +11,13 @@ export default function ClauseCancellation() {
   return (
     <ClauseShell
       title="Multa por cancelamento"
-      description="Penalidade caso o cliente encerre o contrato sem aviso previo suficiente."
-      insight="Quando o cliente cancela do nada, voce perde uma renda fixa que ja estava no seu planejamento. A multa nao e para punir — e para garantir tempo minimo de reposicao dessa receita. Na maioria dos casos o cliente da o aviso so por causa dela."
+      description="Penalidade caso o cliente encerre o contrato sem aviso prévio suficiente."
+      insight="Quando o cliente cancela do nada, você perde uma renda fixa que já estava no seu planejamento. A multa não é para punir — é para garantir tempo mínimo de reposição dessa receita. Na maioria dos casos o cliente dá o aviso só por causa dela."
       enabled={clause.enabled}
       onToggle={(v) => setClauseField("cancellation", "enabled", v)}
     >
       <ClauseNumberField
-        label="Aviso previo minimo para cancelamento"
+        label="Aviso prévio mínimo para cancelamento"
         value={clause.noticeDays}
         onChange={(v) => setClauseField("cancellation", "noticeDays", v)}
         min={1}
@@ -34,7 +34,7 @@ export default function ClauseCancellation() {
 
       <p className="text-xs text-muted-foreground">
         Multa aplicada quando o aviso for dado com menos de {clause.noticeDays}{" "}
-        {clause.noticeDays === 1 ? "dia" : "dias"} de antecedencia.
+        {clause.noticeDays === 1 ? "dia" : "dias"} de antecedência.
       </p>
     </ClauseShell>
   );

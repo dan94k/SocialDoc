@@ -55,7 +55,7 @@ export default function ClauseShell({
                 : "border-border bg-background hover:bg-accent"
             )}
           >
-            {val ? "Sim, incluir" : "Nao incluir"}
+            {val ? "Sim, incluir" : "Não incluir"}
           </button>
         ))}
       </div>

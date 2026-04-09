@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const DOC_OPTIONS: { value: DocType; label: string }[] = [
   { value: "CPF", label: "CPF" },
   { value: "CNPJ", label: "CNPJ" },
-  { value: "nao-fornecer", label: "Nao fornecer" },
+  { value: "nao-fornecer", label: "Não fornecer" },
 ];
 
 const DOC_PLACEHOLDER: Record<string, string> = {

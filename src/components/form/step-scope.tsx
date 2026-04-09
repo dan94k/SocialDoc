@@ -10,15 +10,15 @@ export default function StepScope() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold">Escopo dos servicos</h2>
+        <h2 className="text-2xl font-bold">Escopo dos serviços</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          O que voce vai produzir para {data.clientName || "o cliente"}?
+          O que você vai produzir para {data.clientName || "o cliente"}?
         </p>
       </div>
 
-      {/* Tipos de conteudo */}
+      {/* Tipos de conteúdo */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Tipos de conteudo</p>
+        <p className="text-sm font-medium">Tipos de conteúdo</p>
         <div className="flex flex-wrap gap-2">
           {CONTENT_TYPES.map((ct) => {
             const selected = data.contentTypes.includes(ct.id);
@@ -41,9 +41,9 @@ export default function StepScope() {
         </div>
       </div>
 
-      {/* Quantidade total de pecas */}
+      {/* Quantidade total de peças */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Quantidade total de pecas por mes</p>
+        <p className="text-sm font-medium">Quantidade total de peças por mês</p>
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -62,13 +62,13 @@ export default function StepScope() {
           >
             +
           </button>
-          <span className="text-sm text-muted-foreground">pecas / mes</span>
+          <span className="text-sm text-muted-foreground">peças / mês</span>
         </div>
       </div>
 
-      {/* Servicos complementares */}
+      {/* Serviços complementares */}
       <div className="space-y-2">
-        <p className="text-sm font-medium">Servicos complementares</p>
+        <p className="text-sm font-medium">Serviços complementares</p>
         <div className="flex flex-wrap gap-2">
           {AUXILIARY_SERVICES.map((svc) => {
             const selected = data.auxiliaryServices.includes(svc.id);

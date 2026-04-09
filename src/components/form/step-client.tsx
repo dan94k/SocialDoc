@@ -12,13 +12,13 @@ export default function StepClient() {
     <div className="space-y-5">
       <h2 className="text-2xl font-bold">Dados do seu cliente</h2>
       <p className="text-muted-foreground">
-        Nome completo ou razao social do cliente que contratara seus servicos.
+        Nome completo ou razão social do cliente que contratará seus serviços.
       </p>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium text-foreground">Nome completo ou razao social</p>
+        <p className="text-sm font-medium text-foreground">Nome completo ou razão social</p>
         <Input
-          placeholder="Ex: Padaria do Joao LTDA"
+          placeholder="Ex: Padaria do João LTDA"
           value={data.clientName}
           onChange={(e) => setField("clientName", e.target.value)}
           autoFocus

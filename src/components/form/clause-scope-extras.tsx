@@ -10,8 +10,8 @@ export default function ClauseScopeExtras() {
   return (
     <ClauseShell
       title="Extras fora do escopo"
-      description="Demandas que vao alem do que foi combinado no contrato."
-      insight="O cliente que fecha um pacote de Instagram muitas vezes comeca a pedir arte para flyer, video para TV, post para LinkedIn... Essa clausula deixa claro que qualquer coisa alem do combinado tem um preco — e precisa de aprovacao antes de voce executar."
+      description="Demandas que vão além do que foi combinado no contrato."
+      insight="O cliente que fecha um pacote de Instagram muitas vezes começa a pedir arte para flyer, vídeo para TV, post para LinkedIn... Essa cláusula deixa claro que qualquer coisa além do combinado tem um preço — e precisa de aprovação antes de você executar."
       enabled={clause.enabled}
       onToggle={(v) => setClauseField("scopeExtras", "enabled", v)}
     />

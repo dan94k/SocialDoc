@@ -12,7 +12,7 @@ export default function StepFreelancer() {
     <div className="space-y-5">
       <h2 className="text-2xl font-bold">Seus dados</h2>
       <p className="text-muted-foreground">
-        Informacoes que aparecerão no contrato como prestador de servicos.
+        Informações que aparecerão no contrato como prestador de serviços.
       </p>
 
       <div className="space-y-2">

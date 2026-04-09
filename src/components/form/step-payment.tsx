@@ -46,7 +46,7 @@ export default function StepPayment() {
             onChange={(e) => setField("paymentDueDay", Number(e.target.value))}
             className="w-20 text-center"
           />
-          <span className="text-sm text-muted-foreground whitespace-nowrap">de cada mes</span>
+          <span className="text-sm text-muted-foreground whitespace-nowrap">de cada mês</span>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function StepPayment() {
 
         {hasPix && (
           <Input
-            placeholder="CPF, e-mail, telefone ou chave aleatoria"
+            placeholder="CPF, e-mail, telefone ou chave aleatória"
             value={data.pixKey ?? ""}
             onChange={(e) => setField("pixKey", e.target.value)}
             autoFocus
@@ -91,7 +91,7 @@ export default function StepPayment() {
 
         {!hasPix && (
           <p className="text-xs text-muted-foreground">
-            O contrato dira que a forma de pagamento sera combinada entre as partes.
+            O contrato dirá que a forma de pagamento será combinada entre as partes.
           </p>
         )}
       </div>

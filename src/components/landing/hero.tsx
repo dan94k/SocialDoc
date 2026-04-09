@@ -64,7 +64,7 @@ export default function Hero() {
           }}
         >
           <Shield className="h-3.5 w-3.5" />
-          Proteção para social medias brasileiros
+          Proteção para social medias brasileiras
         </div>
 
         {/* Headline */}

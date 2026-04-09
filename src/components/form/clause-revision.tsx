@@ -11,18 +11,18 @@ export default function ClauseRevision() {
 
   return (
     <ClauseShell
-      title="Limite de revisoes"
-      description="Quantas vezes o cliente pode pedir alteracoes em cada peca?"
-      insight="Sem esse limite, o cliente pode pedir infinitas revisoes sem pagar nada a mais. Na pratica voce raramente vai cobrar — mas ter no contrato ja faz o cliente pensar duas vezes antes de pedir a decima mudanca."
+      title="Limite de revisões"
+      description="Quantas vezes o cliente pode pedir alterações em cada peça?"
+      insight="Sem esse limite, o cliente pode pedir infinitas revisões sem pagar nada a mais. Na prática você raramente vai cobrar — mas ter no contrato já faz o cliente pensar duas vezes antes de pedir a décima mudança."
       enabled={clause.enabled}
       onToggle={(v) => setClauseField("revision", "enabled", v)}
     >
       <ClauseNumberField
-        label="Maximo de revisoes por peca"
+        label="Máximo de revisões por peça"
         value={clause.maxRevisions}
         onChange={(v) => setClauseField("revision", "maxRevisions", v)}
         min={1}
-        suffix={clause.maxRevisions === 1 ? "revisao" : "revisoes"}
+        suffix={clause.maxRevisions === 1 ? "revisão" : "revisões"}
       />
 
       <ClauseNumberField
@@ -30,11 +30,11 @@ export default function ClauseRevision() {
         value={clause.adjustmentDays}
         onChange={(v) => setClauseField("revision", "adjustmentDays", v)}
         min={1}
-        suffix={clause.adjustmentDays === 1 ? "dia util" : "dias uteis"}
+        suffix={clause.adjustmentDays === 1 ? "dia útil" : "dias úteis"}
       />
 
       <div className="space-y-2">
-        <p className="text-sm font-medium">Cobrar por revisao extra?</p>
+        <p className="text-sm font-medium">Cobrar por revisão extra?</p>
         <div className="flex gap-2">
           {[true, false].map((val) => (
             <button
@@ -47,7 +47,7 @@ export default function ClauseRevision() {
                   : "border-border bg-background hover:bg-accent"
               }`}
             >
-              {val ? "Sim" : "Nao"}
+              {val ? "Sim" : "Não"}
             </button>
           ))}
         </div>
@@ -55,7 +55,7 @@ export default function ClauseRevision() {
 
       {clause.chargeExtra && (
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Valor por revisao extra</label>
+          <label className="text-sm font-medium">Valor por revisão extra</label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
               R$
