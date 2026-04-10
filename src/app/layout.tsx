@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/landing/navbar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Navbar />
         {children}
       </body>
+      <GoogleAnalytics gaId="G-Y04GH0GY9H" />
     </html>
   );
 }
