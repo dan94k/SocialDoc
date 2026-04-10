@@ -17,7 +17,7 @@ export default function SubscriptionPlans({ isSubscribed }: Props) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          priceId: "price_1TJIl5GgPPRZ86mX5eH0W45U",
+          priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
           type: "subscription",
         }),
       });

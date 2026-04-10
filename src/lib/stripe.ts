@@ -9,7 +9,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export const PRICE_IDS = {
-  subscription: "price_1TJIl5GgPPRZ86mX5eH0W45U",
+  subscription: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!,
 } as const;
 
 export type PurchaseType = keyof typeof PRICE_IDS;
